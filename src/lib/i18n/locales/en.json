@@ -1,10 +1,9 @@
 {
 	"title": "@konemono Nostr Web Components",
 	"description": "A component library for easily integrating Nostr protocol into your web applications",
-
 	"components": {
 		"note": {
-			"description": "Display Nostr notes with complete functionality including post details, reactions, and replies."
+			"description": "Display Nostr notes."
 		},
 		"profile": {
 			"description": "Display user profiles with options for full profile or name-only display modes."
@@ -13,12 +12,10 @@
 			"description": "Display lists of Nostr events based on filter criteria with customizable limit settings."
 		},
 		"naddr": {
-			"description": "Display content from Nostr addresses (naddr). Supports long-form articles and profile information."
+			"description": "Display content from Nostr addresses (naddr)."
 		}
 	},
-
 	"learnMore": "Learn More",
-
 	"demo": {
 		"title": "Demo",
 		"description": "Below are live examples of the components in action. See how each component functions in real-time.",
@@ -33,18 +30,31 @@
 		},
 		"list": {
 			"title": "Event List"
+		},
+		"naddr": {
+			"title": "Naddr Display"
 		}
 	},
 	"installation": {
 		"title": "Installation",
+		"description": "Instructions on how to integrate nostr-web-components into your web page.",
 		"cdn": {
-			"title": "1. Load from CDN"
+			"title": "Load from CDN",
+			"description": "The easiest way is to load the script via CDN."
 		},
 		"usage": {
-			"title": "2. Use Components"
+			"title": "Basic Usage",
+			"description": "By using <nostr-container>, relay information can be shared with all child components."
+		},
+		"standalone": {
+			"title": "Use Individually",
+			"description": "You can also use each component independently without <nostr-container>."
+		},
+		"override": {
+			"title": "Override Relays",
+			"description": "Specify the relays attribute for each component to override the parent setting."
 		}
 	},
-
 	"navigation": {
 		"title": "Documentation",
 		"installation": "Installation Guide",

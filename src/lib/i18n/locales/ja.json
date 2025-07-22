@@ -1,10 +1,9 @@
 {
 	"title": "@konemono Nostr Web Components",
 	"description": "Nostr プロトコルを簡単にWebアプリケーションに統合するためのコンポーネントライブラリ",
-
 	"components": {
 		"note": {
-			"description": "Nostr ノートを表示するコンポーネント。投稿の詳細情報、リアクション、返信を含む完全な表示機能。"
+			"description": "Nostr ノートを表示するコンポーネント。"
 		},
 		"profile": {
 			"description": "ユーザープロフィールを表示。フルプロフィールまたは名前のみの表示モードを選択可能。"
@@ -13,12 +12,10 @@
 			"description": "フィルター条件に基づいてNostrイベントのリストを表示。カスタマイズ可能な制限設定。"
 		},
 		"naddr": {
-			"description": "Nostr アドレス（naddr）からコンテンツを表示。長文記事やプロフィール情報に対応。"
+			"description": "Nostr アドレス（naddr）からコンテンツを表示。"
 		}
 	},
-
 	"learnMore": "詳細を見る",
-
 	"demo": {
 		"title": "デモ",
 		"description": "以下は実際のコンポーネントの動作例です。各コンポーネントがどのように機能するかを確認できます。",
@@ -33,19 +30,31 @@
 		},
 		"list": {
 			"title": "イベントリスト"
+		},
+		"naddr": {
+			"title": "Naddr イベントの表示"
 		}
 	},
-
 	"installation": {
-		"title": "インストール",
+		"title": "インストール方法",
+		"description": "nostr-web-components を Web ページに組み込むための手順を紹介します。",
 		"cdn": {
-			"title": "1. CDNから読み込み"
+			"title": "CDNから読み込む",
+			"description": "もっとも簡単な方法は、CDN経由でスクリプトを読み込むことです。"
 		},
 		"usage": {
-			"title": "2. コンポーネントを使用"
+			"title": "基本的な使い方",
+			"description": "<nostr-container> を使うことで、すべての子コンポーネントにリレー情報を共有できます。"
+		},
+		"standalone": {
+			"title": "単体で使う",
+			"description": "<nostr-container> を使わず、各コンポーネント単独で利用することも可能です。"
+		},
+		"override": {
+			"title": "リレーを個別に指定する",
+			"description": "各コンポーネントに relays 属性を指定することで、親の設定を上書きできます。"
 		}
 	},
-
 	"navigation": {
 		"title": "ドキュメント",
 		"installation": "インストール方法",

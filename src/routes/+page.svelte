@@ -16,7 +16,7 @@
 				<h3><span class="icon">N</span>nostr-note</h3>
 				<p>{$t('components.note.description')}</p>
 				<div class="code-example">
-					<code>&lt;nostr-note id="nevent1..." theme={theme.get()} /&gt;</code>
+					<code>&lt;nostr-note id="nevent1..." theme="{theme.get()}" /&gt;</code>
 				</div>
 				<a href="/nostr-note" class="learn-more">{$t('learnMore')} →</a>
 			</div>
@@ -25,27 +25,27 @@
 				<h3><span class="icon">P</span>nostr-profile</h3>
 				<p>{$t('components.profile.description')}</p>
 				<div class="code-example">
-					<code>&lt;nostr-profile user="npub1..." theme={theme.get()} /&gt;</code>
+					<code>&lt;nostr-profile user="npub1..." theme="{theme.get()}" /&gt;</code>
 				</div>
 				<a href="/nostr-profile" class="learn-more">{$t('learnMore')} →</a>
-			</div>
-
-			<div class="component-card">
-				<h3><span class="icon">L</span>nostr-list</h3>
-				<p>{$t('components.list.description')}</p>
-				<div class="code-example">
-					<code>&lt;nostr-list filters="[...]" limit="3" theme={theme.get()} /&gt;</code>
-				</div>
-				<a href="/nostr-list" class="learn-more">{$t('learnMore')} →</a>
 			</div>
 
 			<div class="component-card">
 				<h3><span class="icon">A</span>nostr-naddr</h3>
 				<p>{$t('components.naddr.description')}</p>
 				<div class="code-example">
-					<code>&lt;nostr-naddr address="naddr1..." theme={theme.get()} /&gt;</code>
+					<code>&lt;nostr-naddr naddr="naddr1..." theme={theme.get()} /&gt;</code>
 				</div>
 				<a href="/nostr-naddr" class="learn-more">{$t('learnMore')} →</a>
+			</div>
+
+			<div class="component-card">
+				<h3><span class="icon">L</span>nostr-list</h3>
+				<p>{$t('components.list.description')}</p>
+				<div class="code-example">
+					<code>&lt;nostr-list filters="[...]" limit="3" theme="{theme.get()}" /&gt;</code>
+				</div>
+				<a href="/nostr-list" class="learn-more">{$t('learnMore')} →</a>
 			</div>
 		</div>
 	</section>
@@ -71,7 +71,14 @@
 							user="npub1sjcvg64knxkrt6ev52rywzu9uzqakgy8ehhk8yezxmpewsthst6sw3jqcw"
 						></nostr-profile>
 					</div>
-
+					<div class="demo-item">
+						<h4>{$t('demo.naddr.title')}</h4>
+						<nostr-naddr
+							itemsPerPage="3"
+							theme={theme.get()}
+							naddr={`naddr1qvzqqqr4xvpzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qqyx6mmwdakk76nfhw6njd`}
+						></nostr-naddr>
+					</div>
 					<div class="demo-item">
 						<h4>{$t('demo.list.title')}</h4>
 						<nostr-list
@@ -84,34 +91,14 @@
 			</div>
 		</section>
 	{/if}
-	<section class="installation">
-		<h2>{$t('installation.title')}</h2>
-		<div class="install-steps">
-			<div class="step">
-				<h3>{$t('installation.cdn.title')}</h3>
-				<div class="code-block">
-					<code
-						>&lt;script
-						src="https://cdn.jsdelivr.net/npm/@konemono/nostr-web-components@0.1.27/dist/nostr-web-components.iife.js"&gt;&lt;/script&gt;</code
-					>
-				</div>
-			</div>
-			<div class="step">
-				<h3>{$t('installation.usage.title')}</h3>
-				<div class="code-block">
-					<code>&lt;nostr-note id="nevent1..." /&gt;</code>
-				</div>
-			</div>
-		</div>
-	</section>
 
 	<nav class="navigation">
 		<h2>{$t('navigation.title')}</h2>
 		<div class="nav-links">
 			<a href="/nostr-note" class="nav-link">nostr-note</a>
 			<a href="/nostr-profile" class="nav-link">nostr-profile</a>
-			<a href="/nostr-list" class="nav-link">nostr-list</a>
 			<a href="/nostr-naddr" class="nav-link">nostr-naddr</a>
+			<a href="/nostr-list" class="nav-link">nostr-list</a>
 			<a href="/installation" class="nav-link">{$t('navigation.installation')}</a>
 			<a href="/api" class="nav-link">{$t('navigation.api')}</a>
 		</div>
@@ -127,7 +114,7 @@
 
 	.hero {
 		text-align: center;
-		padding: 4rem 0 3rem;
+		padding: 3rem 0.5rem;
 		background: var(--color-primary-500);
 		color: var(--color-primary-contrast-500);
 		border-radius: 20px;
@@ -267,45 +254,6 @@
 		font-weight: 600;
 		color: var(--color-surface-800-200);
 		margin-bottom: 1rem;
-	}
-
-	.installation {
-		background: var(--color-surface-50-950);
-		border-radius: 16px;
-		padding: 3rem;
-		margin-bottom: 4rem;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-	}
-
-	.installation h2 {
-		font-size: 2rem;
-		font-weight: 600;
-		color: var(--color-surface-900-100);
-		margin-bottom: 2rem;
-		text-align: center;
-	}
-
-	.install-steps {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-		gap: 2rem;
-	}
-
-	.step h3 {
-		font-size: 1.25rem;
-		font-weight: 600;
-		color: var(--color-surface-800-200);
-		margin-bottom: 1rem;
-	}
-
-	.code-block {
-		background: var(--color-surface-100-900);
-		color: var(--color-surface-800-200);
-		border-radius: 8px;
-		padding: 1.5rem;
-		font-family: 'Monaco', 'Menlo', monospace;
-		font-size: 0.9rem;
-		overflow-x: auto;
 	}
 
 	.navigation {

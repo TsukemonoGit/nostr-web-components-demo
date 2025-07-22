@@ -15,8 +15,28 @@
 		</li>
 	</ul>
 
+	<!-- Docs セクション -->
+	<h2 class=" mb-3 text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">Docs</h2>
+	<ul class="space-y-1">
+		<li>
+			<a
+				href="/installation"
+				class="block rounded-md px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800"
+				>{$t('navigation.installation')}</a
+			>
+		</li>
+		<li>
+			<a
+				href="/api"
+				class="block rounded-md px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800"
+				>{$t('navigation.api')}</a
+			>
+		</li>
+	</ul>
 	<!-- Components セクション -->
-	<h2 class="mb-3 text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">Components</h2>
+	<h2 class="mt-6 mb-3 text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
+		Components
+	</h2>
 	<ul class="space-y-1">
 		<li>
 			<a
@@ -32,13 +52,7 @@
 				>nostr-profile</a
 			>
 		</li>
-		<li>
-			<a
-				href="/nostr-list"
-				class="block rounded-md px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800"
-				>nostr-list</a
-			>
-		</li>
+
 		<li>
 			<a
 				href="/nostr-naddr"
@@ -46,23 +60,11 @@
 				>nostr-naddr</a
 			>
 		</li>
-	</ul>
-
-	<!-- Docs セクション -->
-	<h2 class="mt-6 mb-3 text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">Docs</h2>
-	<ul class="space-y-1">
 		<li>
 			<a
-				href="/installation"
+				href="/nostr-list"
 				class="block rounded-md px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800"
-				>{$t('navigation.installation')}</a
-			>
-		</li>
-		<li>
-			<a
-				href="/api"
-				class="block rounded-md px-3 py-2 text-gray-900 hover:bg-gray-100 dark:text-gray-100 dark:hover:bg-gray-800"
-				>{$t('navigation.api')}</a
+				>nostr-list</a
 			>
 		</li>
 	</ul>
