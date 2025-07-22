@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import InteractivePlayground from '$lib/components/InteractivePlayground.svelte';
 	import { theme } from '$lib/runes/runes.svelte';
 	import { resolveToNoteId } from '$lib/utils/utils';
 	import { t } from '@konemono/svelte5-i18n';
@@ -41,6 +42,102 @@
 	/* 	$effect(() => {
 		console.log('Props updated:', playgroundProps);
 	}); */
+
+	const nostrNoteConfig = {
+		title: 'インタラクティブプレイグラウンド',
+		description: 'プロパティを変更して見た目を試してみてください',
+		componentTag: 'nostr-note',
+		defaultProps: {
+			id: 'nevent1qvzqqqqqqypzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qyxhwumn8ghj77tpvf6jumt9qyv8wumn8ghj7un9d3shjtnddakk7um5wgh8q6twdvqzq673ld76k3sn9nuflzqxgyz2ht9lkh0a3qun9vxv7frfhsv4pvsph7jzvj',
+			relays: 'wss://nfrelay.app,wss://nos.lol',
+			href: '',
+			target: '_blank',
+			noLink: false,
+			theme: 'auto',
+			height: '',
+			display: 'card'
+		},
+		propConfigs: [
+			{
+				key: 'id',
+				label: 'Event ID',
+				type: 'text' as const,
+				placeholder: 'nevent1...'
+			},
+			{
+				key: 'relays',
+				label: 'Relays (カンマ区切り)',
+				type: 'text' as const,
+				placeholder: 'wss://relay1.com,wss://relay2.com'
+			},
+			{
+				key: 'href',
+				label: 'カスタムURL',
+				type: 'text' as const,
+				placeholder: 'https://example.com'
+			},
+			{
+				key: 'target',
+				label: 'Target',
+				type: 'select' as const,
+				options: [
+					{ value: '_blank', label: '_blank' },
+					{ value: '_self', label: '_self' },
+					{ value: '_parent', label: '_parent' },
+					{ value: '_top', label: '_top' }
+				]
+			},
+			{
+				key: 'theme',
+				label: 'Theme',
+				type: 'select' as const,
+				options: [
+					{ value: 'auto', label: 'auto' },
+					{ value: 'light', label: 'light' },
+					{ value: 'dark', label: 'dark' }
+				]
+			},
+			{
+				key: 'display',
+				label: 'Display',
+				type: 'select' as const,
+				options: [
+					{ value: 'card', label: 'card' },
+					{ value: 'compact', label: 'compact' }
+				]
+			},
+			{
+				key: 'height',
+				label: 'Height',
+				type: 'text' as const,
+				placeholder: '400px'
+			},
+			{
+				key: 'noLink',
+				label: 'リンクを無効化 (noLink)',
+				type: 'checkbox' as const
+			}
+		],
+		generateCode: (props: any) => {
+			let attributes: string[] = [`id="${props.id}"`];
+
+			if (props.relays) {
+				const relaysArray = props.relays
+					.split(',')
+					.map((r: string) => `"${r.trim()}"`)
+					.join(', ');
+				attributes.push(`relays={[${relaysArray}]}`);
+			}
+			if (props.href) attributes.push(`href="${props.href}"`);
+			if (props.target !== '_blank') attributes.push(`target="${props.target}"`);
+			if (props.noLink) attributes.push(`noLink={true}`);
+			if (props.theme !== 'auto') attributes.push(`theme="${props.theme}"`);
+			if (props.height) attributes.push(`height="${props.height}"`);
+			if (props.display !== 'card') attributes.push(`display="${props.display}"`);
+
+			return `<nostr-note\n  ${attributes.join('\n  ')}\n></nostr-note>`;
+		}
+	};
 </script>
 
 <h2 class="text-center h2">nostr-note コンポーネント説明とデモ</h2>
@@ -95,7 +192,24 @@
 		</li>
 	</ul>
 </section>
-
+<InteractivePlayground config={nostrNoteConfig}>
+	{#snippet preview(props)}
+		{#if resolveToNoteId(props.id || nostrNoteConfig.defaultProps.id) !== null}
+			<nostr-note
+				id={props.id || nostrNoteConfig.defaultProps.id}
+				relays={props.relays
+					? props.relays.split(',').map((r: string) => r.trim())
+					: nostrNoteConfig.defaultProps.relays.split(',').map((r) => r.trim())}
+				href={props.href || undefined}
+				target={props.target || nostrNoteConfig.defaultProps.target}
+				noLink={props.noLink || nostrNoteConfig.defaultProps.noLink}
+				theme={props.theme || nostrNoteConfig.defaultProps.theme}
+				height={props.height || undefined}
+				display={props.display || nostrNoteConfig.defaultProps.display}
+			></nostr-note>
+		{/if}
+	{/snippet}</InteractivePlayground
+>
 <!-- インタラクティブプレイグラウンド -->
 <section class="playground-section p-2 sm:p-8">
 	<h2 class="text-center h2">🎮 インタラクティブプレイグラウンド</h2>
