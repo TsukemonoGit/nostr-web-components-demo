@@ -49,15 +49,51 @@
 <section class="demo-section p-2 sm:p-8">
 	<h3 class="h3">主なプロパティ</h3>
 	<ul>
-		<li><strong>id</strong>: 表示するNostrイベントのID（必須）</li>
-		<li><strong>relays</strong>: 取得に使うRelayのURL配列（省略可）</li>
-		<li><strong>href</strong>: イベントリンクのURL（省略時は自動生成）</li>
-		<li><strong>target</strong>: リンクのターゲット属性（例: "_blank"）</li>
-		<li><strong>noLink</strong>: trueにするとリンク表示を無効化</li>
-		<li><strong>className</strong>: コンテナに付与するクラス名</li>
-		<li><strong>theme</strong>: "auto"（デフォルト）/ "dark" / "light"</li>
-		<li><strong>height</strong>: 表示高さ（任意）</li>
-		<li><strong>display</strong>: 表示スタイル。"card"(デフォルト) / "compact"</li>
+		<li>
+			<strong>id</strong>
+
+			<div class="inline-flex">表示するNostrイベントのID（必須）</div>
+		</li>
+		<li>
+			<strong>relays</strong>
+
+			<div class="inline-flex">取得に使うRelayのURL配列（省略可）</div>
+		</li>
+		<li>
+			<strong>href</strong>
+
+			<div class="inline-flex">イベントリンクのURL（省略時は自動生成）</div>
+		</li>
+		<li>
+			<strong>target</strong>
+
+			<div class="inline-flex">リンクのターゲット属性（例: "_blank"）</div>
+		</li>
+		<li>
+			<strong>noLink</strong>
+
+			<div class="inline-flex">trueにするとリンク表示を無効化</div>
+		</li>
+		<li>
+			<strong>className</strong>
+
+			<div class="inline-flex">コンテナに付与するクラス名</div>
+		</li>
+		<li>
+			<strong>theme</strong>
+
+			<div class="inline-flex">"auto"（デフォルト）/ "dark" / "light"</div>
+		</li>
+		<li>
+			<strong>height</strong>
+
+			<div class="inline-flex">表示高さ（任意）</div>
+		</li>
+		<li>
+			<strong>display</strong>
+
+			<div class="inline-flex">表示スタイル。"card"(デフォルト) / "compact"</div>
+		</li>
 	</ul>
 </section>
 
@@ -66,7 +102,7 @@
 	<h2 class="text-center h2">🎮 インタラクティブプレイグラウンド</h2>
 	<p class="mb-6 text-center">プロパティを変更して見た目を試してみてください</p>
 
-	<div class="playground-container">
+	<div class="grid grid-rows-[auto_auto] gap-4 md:grid-cols-2">
 		<div class="controls-panel">
 			<h3 class="mb-4 h3">プロパティ設定</h3>
 
@@ -204,25 +240,11 @@
 		box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
 	}
 
-	.playground-container {
-		display: grid;
-		grid-template-columns: 1fr 1fr;
-		gap: 2rem;
-		margin-top: 2rem;
-	}
-
-	@media (max-width: 768px) {
-		.playground-container {
-			grid-template-columns: 1fr;
-		}
-	}
-
 	.controls-panel {
 		background: var(--color-surface-100-900);
 		padding: 1.5rem;
 		border-radius: 12px;
 		height: fit-content;
-		position: sticky;
 		top: 1rem;
 	}
 
@@ -327,6 +349,7 @@
 	ul {
 		display: flex;
 		flex-direction: column;
+
 		gap: 1rem;
 		margin: 0;
 		padding: 1em 0;
@@ -348,7 +371,7 @@
 		font-weight: 700;
 		color: var(--color-primary-700-300);
 		display: inline-block;
-		min-width: 6rem;
+		min-width: 5rem;
 	}
 
 	nostr-note {
