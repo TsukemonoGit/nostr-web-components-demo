@@ -11,7 +11,6 @@
 		href: '',
 		target: '_blank',
 		noLink: false,
-		className: '',
 		theme: 'auto',
 		height: '',
 		display: 'card'
@@ -31,7 +30,7 @@
 		if (props.href) attributes.push(`href="${props.href}"`);
 		if (props.target !== '_blank') attributes.push(`target="${props.target}"`);
 		if (props.noLink) attributes.push(`noLink={true}`);
-		if (props.className) attributes.push(`className="${props.className}"`);
+
 		if (props.theme !== 'auto') attributes.push(`theme="${props.theme}"`);
 		if (props.height) attributes.push(`height="${props.height}"`);
 		if (props.display !== 'card') attributes.push(`display="${props.display}"`);
@@ -173,16 +172,6 @@
 				/>
 			</div>
 
-			<div class="control-group">
-				<label for="pg-className">CSS Class</label>
-				<input
-					id="pg-className"
-					bind:value={playgroundProps.className}
-					placeholder="custom-class"
-					class="control-input"
-				/>
-			</div>
-
 			<div class="control-group checkbox-group">
 				<label class="checkbox-label">
 					<input type="checkbox" bind:checked={playgroundProps.noLink} class="control-checkbox" />
@@ -203,7 +192,6 @@
 						href={playgroundProps.href || undefined}
 						target={playgroundProps.target}
 						noLink={playgroundProps.noLink}
-						className={playgroundProps.className}
 						theme={playgroundProps.theme}
 						height={playgroundProps.height || undefined}
 						display={playgroundProps.display}
