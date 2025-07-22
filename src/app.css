@@ -5,3 +5,25 @@
 
 @source '../node_modules/@skeletonlabs/skeleton-svelte/dist';
 @custom-variant dark (&:where(.dark, .dark *));
+
+dialog,
+dialog::backdrop {
+	--anim-duration: 250ms;
+	transition:
+		display var(--anim-duration) allow-discrete,
+		overlay var(--anim-duration) allow-discrete,
+		opacity var(--anim-duration);
+	opacity: 0;
+}
+/* Animate In */
+dialog[open],
+dialog[open]::backdrop {
+	opacity: 1;
+}
+/* Animate Out */
+@starting-style {
+	dialog[open],
+	dialog[open]::backdrop {
+		opacity: 0;
+	}
+}

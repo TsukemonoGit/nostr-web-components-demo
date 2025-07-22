@@ -1,5 +1,5 @@
 {
-	"name": "demo",
+	"name": "@konemono/nostr-web-components-demo",
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
@@ -43,6 +43,7 @@
 		"vitest-browser-svelte": "^0.1.0"
 	},
 	"dependencies": {
+		"@konemono/svelte5-i18n": "^0.2.0",
 		"@lucide/svelte": "^0.525.0"
 	}
 }

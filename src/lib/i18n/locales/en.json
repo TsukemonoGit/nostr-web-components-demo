@@ -1,0 +1,53 @@
+{
+	"title": "@konemono Nostr Web Components",
+	"description": "A component library for easily integrating Nostr protocol into your web applications",
+
+	"components": {
+		"note": {
+			"description": "Display Nostr notes with complete functionality including post details, reactions, and replies."
+		},
+		"profile": {
+			"description": "Display user profiles with options for full profile or name-only display modes."
+		},
+		"list": {
+			"description": "Display lists of Nostr events based on filter criteria with customizable limit settings."
+		},
+		"naddr": {
+			"description": "Display content from Nostr addresses (naddr). Supports long-form articles and profile information."
+		}
+	},
+
+	"learnMore": "Learn More",
+
+	"demo": {
+		"title": "Demo",
+		"description": "Below are live examples of the components in action. See how each component functions in real-time.",
+		"note": {
+			"title": "Note Display"
+		},
+		"profile": {
+			"title": "Profile Display"
+		},
+		"profileName": {
+			"title": "Profile Name Only"
+		},
+		"list": {
+			"title": "Event List"
+		}
+	},
+	"installation": {
+		"title": "Installation",
+		"cdn": {
+			"title": "1. Load from CDN"
+		},
+		"usage": {
+			"title": "2. Use Components"
+		}
+	},
+
+	"navigation": {
+		"title": "Documentation",
+		"installation": "Installation Guide",
+		"api": "API Reference"
+	}
+}
