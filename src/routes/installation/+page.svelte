@@ -60,11 +60,7 @@
 
 <style>
 	.installation {
-		background: var(--color-surface-50-950);
-		border-radius: 16px;
 		padding: 3rem;
-		margin-bottom: 4rem;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 	}
 
 	.installation h2 {

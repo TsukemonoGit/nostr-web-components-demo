@@ -72,15 +72,27 @@
 						></nostr-profile>
 					</div>
 					<div class="demo-item">
-						<h4>{$t('demo.naddr.title')}</h4>
+						<h4>
+							{$t('demo.naddr.title')}<span class="ml-2 text-xs font-normal text-surface-400">
+								( user: mono@tsukemonogit.github.io, kind: 30003 id: monomoji )
+							</span>
+						</h4>
+
 						<nostr-naddr
 							itemsPerPage="3"
 							theme={theme.get()}
-							naddr={`naddr1qvzqqqr4xvpzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qqyx6mmwdakk76nfhw6njd`}
+							user="mono@tsukemonogit.github.io"
+							kind="30003"
+							identifier="monomoji"
 						></nostr-naddr>
 					</div>
 					<div class="demo-item">
-						<h4>{$t('demo.list.title')}</h4>
+						<h4>
+							{$t('demo.list.title')}
+							<span class="ml-2 text-xs font-normal text-surface-400">
+								( filters: {'[{"authors":["84b0c4…782f5"]}]'}, limit: 3 )
+							</span>
+						</h4>
 						<nostr-list
 							theme={theme.get()}
 							filters={`[{"authors":["84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5"]}]`}
