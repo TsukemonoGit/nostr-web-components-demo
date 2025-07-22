@@ -34,7 +34,7 @@
 	<div data-dialog-content class="flex h-full flex-col">
 		<!-- Header with close button -->
 		<div class="border-surface-300-600 mb-4 flex items-center justify-between border-b pb-2">
-			<h3 class="text-lg font-semibold">Menu</h3>
+			<h4 class="h4">Menu</h4>
 			<button
 				type="button"
 				onclick={closeModal}

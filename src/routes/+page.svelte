@@ -5,10 +5,10 @@
 </script>
 
 <div class="container">
-	<header class="hero">
-		<h1>{$t('title')}</h1>
-		<p>{$t('description')}</p>
-	</header>
+	<div class="hero">
+		<div class="text-2xl sm:text-4xl">{$t('title')}</div>
+		<p class="text-xs sm:text-base">{$t('description')}</p>
+	</div>
 
 	<section class="components-overview">
 		<div class="component-grid">
@@ -50,8 +50,8 @@
 		</div>
 	</section>
 	{#if browser}
-		<section class="demo-section">
-			<h2>{$t('demo.title')}</h2>
+		<section class="demo-section p-2 sm:p-8">
+			<h2 class="text-center h2">{$t('demo.title')}</h2>
 			<p class="demo-intro">{$t('demo.description')}</p>
 
 			<div class="demo-container">
@@ -127,23 +127,12 @@
 	.hero {
 		text-align: center;
 		padding: 3rem 0.5rem;
-		background: var(--color-primary-500);
-		color: var(--color-primary-contrast-500);
+		background: var(--color-primary-400-600);
+		color: var(--color-primary-50);
 		border-radius: 20px;
 		margin-bottom: 3rem;
-	}
 
-	.hero h1 {
-		font-size: 3rem;
-		font-weight: 700;
 		margin-bottom: 1rem;
-	}
-
-	.hero p {
-		font-size: 1.25rem;
-		opacity: 0.9;
-		max-width: 600px;
-		margin: 0 auto;
 	}
 
 	.components-overview {
@@ -223,64 +212,11 @@
 		color: var(--color-primary-600-400);
 	}
 
-	.demo-section {
-		background: var(--color-surface-50-950);
-		border-radius: 16px;
-		padding: 3rem;
-		margin-bottom: 4rem;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-	}
-
-	.demo-section h2 {
-		font-size: 2rem;
-		font-weight: 600;
-		color: var(--color-surface-900-100);
-		margin-bottom: 1rem;
-		text-align: center;
-	}
-
-	.demo-intro {
-		text-align: center;
-		color: var(--color-surface-700-300);
-		margin-bottom: 2rem;
-		font-size: 1.1rem;
-	}
-
-	.demo-container {
-		background: var(--color-surface-50-950);
-		border-radius: 12px;
-		padding: 2rem;
-		border: 2px dashed var(--color-surface-300-700);
-	}
-
-	.demo-item {
-		margin-bottom: 3rem;
-	}
-
-	.demo-item:last-child {
-		margin-bottom: 0;
-	}
-
-	.demo-item h4 {
-		font-size: 1.25rem;
-		font-weight: 600;
-		color: var(--color-surface-800-200);
-		margin-bottom: 1rem;
-	}
-
 	.navigation {
 		background: var(--color-surface-50-950);
 		border-radius: 16px;
 		padding: 3rem;
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-	}
-
-	.navigation h2 {
-		font-size: 1.75rem;
-		font-weight: 600;
-		color: var(--color-surface-900-100);
-		margin-bottom: 2rem;
-		text-align: center;
 	}
 
 	.nav-links {
@@ -309,16 +245,12 @@
 	}
 
 	@media (max-width: 768px) {
-		.hero h1 {
-			font-size: 2rem;
-		}
-
 		.hero p {
 			font-size: 1rem;
 		}
 
 		.container {
-			padding: 1rem;
+			padding: 0rem;
 		}
 
 		.component-grid {

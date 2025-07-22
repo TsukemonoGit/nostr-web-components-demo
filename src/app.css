@@ -27,3 +27,46 @@ dialog[open]::backdrop {
 		opacity: 0;
 	}
 }
+code {
+	white-space: wrap;
+	word-break: normal;
+	word-break: break-word;
+}
+pre {
+	background: var(--color-surface-100-900);
+	color: var(--color-surface-800-200);
+	border-radius: 8px;
+	padding: 1rem;
+	font-family: 'Menlo', monospace;
+	font-size: 0.85rem;
+	overflow-x: auto;
+}
+
+.demo-section {
+	background: var(--color-surface-50-950);
+	border-radius: 16px;
+	margin-bottom: 4rem;
+	box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.demo-intro {
+	text-align: center;
+	color: var(--color-surface-700-300);
+	margin-bottom: 2rem;
+	font-size: 1.1rem;
+}
+
+.demo-container {
+	background: var(--color-surface-50-950);
+	border-radius: 12px;
+	padding: 2rem;
+	border: 2px dashed var(--color-surface-300-700);
+}
+
+.demo-item {
+	margin-bottom: 3rem;
+}
+
+.demo-item:last-child {
+	margin-bottom: 0;
+}

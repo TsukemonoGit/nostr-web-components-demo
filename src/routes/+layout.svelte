@@ -12,7 +12,7 @@
 
 <div class="grid h-screen grid-rows-[auto_1fr_auto]">
 	<!-- Header -->
-	<header class="bg-surface-100-900 p-4">
+	<header class="bg-surface-100-900 p-2">
 		<div class="flex items-center justify-between">
 			<!-- 左：モバイルメニュー + タイトル -->
 			<div class="flex items-center gap-4 text-surface-950-50">
@@ -27,7 +27,7 @@
 					{/snippet}
 				</Sidebar>
 				<!-- タイトル -->
-				<h1 class="text-lg font-bold">
+				<h1 class="h5 sm:h3">
 					<a href="/" class=" hover:underline"> Nostr Web Components </a>
 				</h1>
 			</div>

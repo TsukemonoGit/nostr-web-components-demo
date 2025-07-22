@@ -16,7 +16,7 @@
 	</ul>
 
 	<!-- Docs セクション -->
-	<h2 class=" mb-3 text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">Docs</h2>
+	<div class=" mb-3 text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">Docs</div>
 	<ul class="space-y-1">
 		<li>
 			<a
@@ -34,9 +34,9 @@
 		</li>
 	</ul>
 	<!-- Components セクション -->
-	<h2 class="mt-6 mb-3 text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
+	<div class="mt-6 mb-3 text-xs tracking-wide text-gray-500 uppercase dark:text-gray-400">
 		Components
-	</h2>
+	</div>
 	<ul class="space-y-1">
 		<li>
 			<a
