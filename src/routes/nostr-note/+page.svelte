@@ -1,11 +1,13 @@
 <script lang="ts">
+	import { browser } from '$app/environment';
 	import { theme } from '$lib/runes/runes.svelte';
+	import { resolveToNoteId } from '$lib/utils/utils';
 	import { t } from '@konemono/svelte5-i18n';
 
 	// プレイグラウンド用のプロパティ
 	let playgroundProps = $state({
 		id: 'nevent1qvzqqqqqqypzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qyxhwumn8ghj77tpvf6jumt9qyv8wumn8ghj7un9d3shjtnddakk7um5wgh8q6twdvqzq673ld76k3sn9nuflzqxgyz2ht9lkh0a3qun9vxv7frfhsv4pvsph7jzvj',
-		relays: 'wss://relay.damus.io,wss://nos.lol',
+		relays: 'wss://nfrelay.app,wss://nos.lol',
 		href: '',
 		target: '_blank',
 		noLink: false,
@@ -37,9 +39,9 @@
 		return `<nostr-note\n  ${attributes.join('\n  ')}\n></nostr-note>`;
 	}
 
-	$effect(() => {
+	/* 	$effect(() => {
 		console.log('Props updated:', playgroundProps);
-	});
+	}); */
 </script>
 
 <h2 class="text-center h2">nostr-note コンポーネント説明とデモ</h2>
@@ -156,19 +158,20 @@
 		<div class="preview-panel">
 			<h3 class="mb-4 h3">プレビュー</h3>
 			<div class="preview-container">
-				<nostr-note
-					id={playgroundProps.id}
-					relays={playgroundProps.relays
-						? playgroundProps.relays.split(',').map((r) => r.trim())
-						: undefined}
-					href={playgroundProps.href || undefined}
-					target={playgroundProps.target}
-					noLink={playgroundProps.noLink}
-					className={playgroundProps.className}
-					theme={playgroundProps.theme}
-					height={playgroundProps.height || undefined}
-					display={playgroundProps.display}
-				></nostr-note>
+				{#if resolveToNoteId(playgroundProps.id) !== null && browser}
+					<nostr-note
+						id={playgroundProps.id}
+						relays={playgroundProps.relays
+							? playgroundProps.relays.split(',').map((r) => r.trim())
+							: undefined}
+						href={playgroundProps.href || undefined}
+						target={playgroundProps.target}
+						noLink={playgroundProps.noLink}
+						className={playgroundProps.className}
+						theme={playgroundProps.theme}
+						height={playgroundProps.height || undefined}
+						display={playgroundProps.display}
+					></nostr-note>{/if}
 			</div>
 
 			<h4 class="mt-6 mb-2 h4">生成されたコード</h4>
@@ -185,42 +188,12 @@
 	</div>
 </section>
 
-<section class="demo-section p-2 sm:p-8">
-	<h2 class="text-center h2">{$t('demo.title')}</h2>
-	<div class="demo-container">
-		<div class="demo-item">
-			<h4 class="h4">標準表示</h4>
-			<nostr-note
-				id="nevent1qvzqqqqqqypzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qyxhwumn8ghj77tpvf6jumt9qyv8wumn8ghj7un9d3shjtnddakk7um5wgh8q6twdvqzq673ld76k3sn9nuflzqxgyz2ht9lkh0a3qun9vxv7frfhsv4pvsph7jzvj"
-			></nostr-note>
-
-			<h5 class="mt-2 h5">code</h5>
-			<pre><code
-					>&lt;nostr-note id="nevent1qvzqqqqqqypzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qyxhwumn8ghj77tpvf6jumt9qyv8wumn8ghj7un9d3shjtnddakk7um5wgh8q6twdvqzq673ld76k3sn9nuflzqxgyz2ht9lkh0a3qun9vxv7frfhsv4pvsph7jzvj"&gt;&lt;/nostr-note&gt;</code
-				></pre>
-		</div>
-		<div class="demo-item">
-			<h4 class="h4">ダークテーマ・コンパクト表示</h4>
-			<nostr-note
-				theme={theme.get()}
-				display="compact"
-				id="nevent1qvzqqqqqqypzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qyxhwumn8ghj77tpvf6jumt9qyv8wumn8ghj7un9d3shjtnddakk7um5wgh8q6twdvqzq673ld76k3sn9nuflzqxgyz2ht9lkh0a3qun9vxv7frfhsv4pvsph7jzvj"
-			></nostr-note>
-
-			<h5 class="mt-2 h5">code</h5>
-			<pre><code
-					>&lt;nostr-note theme="dark" display="compact" id="nevent1qvzqqqqqqypzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qyxhwumn8ghj77tpvf6jumt9qyv8wumn8ghj7un9d3shjtnddakk7um5wgh8q6twdvqzq673ld76k3sn9nuflzqxgyz2ht9lkh0a3qun9vxv7frfhsv4pvsph7jzvj"&gt;&lt;/nostr-note&gt;</code
-				></pre>
-		</div>
-	</div>
-</section>
-
 <style>
 	section {
 		margin-bottom: 3rem;
 		padding: 1.5rem 1rem;
 		border-radius: 0.75rem;
-		background-color: var(--surface-100-900);
+		background-color: var(--color-surface-100-900);
 		box-shadow: 0 1px 4px rgb(0 0 0 / 0.05);
 	}
 
@@ -245,7 +218,7 @@
 	}
 
 	.controls-panel {
-		background: var(--surface-200-800);
+		background: var(--color-surface-100-900);
 		padding: 1.5rem;
 		border-radius: 12px;
 		height: fit-content;
@@ -254,7 +227,7 @@
 	}
 
 	.preview-panel {
-		background: var(--surface-100-900);
+		background: var(--color-surface-100-900);
 		padding: 1.5rem;
 		border-radius: 12px;
 	}
@@ -266,7 +239,7 @@
 	.control-group label {
 		display: block;
 		font-weight: 600;
-		color: var(--surface-900-50);
+		color: var(--color-surface-900-50);
 		margin-bottom: 0.5rem;
 		font-size: 0.875rem;
 	}
@@ -275,10 +248,10 @@
 	.control-select {
 		width: 100%;
 		padding: 0.75rem;
-		border: 1px solid var(--surface-300-700);
+		border: 1px solid var(--color-surface-300-700);
 		border-radius: 6px;
-		background: var(--surface-50-950);
-		color: var(--surface-900-50);
+		background: var(--color-surface-50-950);
+		color: var(--color-surface-900-50);
 		font-size: 0.875rem;
 		transition: border-color 0.2s ease;
 	}
@@ -310,9 +283,9 @@
 	.preview-container {
 		min-height: 200px;
 		padding: 1rem;
-		border: 2px dashed var(--surface-300-700);
+		border: 2px dashed var(--color-surface-300-700);
 		border-radius: 8px;
-		background: var(--surface-50-950);
+		background: var(--color-surface-50-950);
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -320,7 +293,7 @@
 
 	.code-container {
 		position: relative;
-		background: var(--surface-200-800);
+		background: var(--color-surface-200-800);
 		border-radius: 8px;
 		padding: 1rem;
 		overflow-x: auto;
@@ -360,13 +333,13 @@
 	}
 
 	li {
-		background-color: var(--surface-100-900);
-		border: 1px solid var(--surface-200-800);
+		background-color: var(--color-surface-100-900);
+		border: 1px solid var(--color-surface-200-800);
 		border-radius: 0.75rem;
 		padding: 0.75rem 1rem;
 		font-size: 0.95rem;
 		line-height: 1.6;
-		color: var(--surface-900-50);
+		color: var(--color-surface-900-50);
 		box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
 	}
 
@@ -384,7 +357,7 @@
 		margin-top: 1rem;
 		border-radius: 0.75rem;
 		box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
-		background-color: var(--surface-50-950);
+		background-color: var(--color-surface-50-950);
 		transition: box-shadow 0.25s ease;
 	}
 
@@ -392,20 +365,5 @@
 		background: var(--color-surface-50-950);
 		border-radius: 16px;
 		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-	}
-
-	.demo-container {
-		background: var(--color-surface-50-950);
-		border-radius: 12px;
-		padding: 2rem;
-		border: 2px dashed var(--color-surface-300-700);
-	}
-
-	.demo-item {
-		margin-bottom: 3rem;
-	}
-
-	.demo-item:last-child {
-		margin-bottom: 0;
 	}
 </style>

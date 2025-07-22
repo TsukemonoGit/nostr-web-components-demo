@@ -73,14 +73,4 @@
 		font-size: 0.95rem;
 		margin-bottom: 1rem;
 	}
-
-	.code-block {
-		background: var(--color-surface-100-900);
-		color: var(--color-surface-800-200);
-		border-radius: 8px;
-		padding: 1rem;
-		font-family: 'Menlo', monospace;
-		font-size: 0.85rem;
-		overflow-x: auto;
-	}
 </style>
