@@ -104,6 +104,10 @@
 		font-family: 'Menlo', monospace;
 		font-size: 0.85rem;
 		overflow-x: auto;
+	}
+	code {
 		white-space: pre-wrap;
+		word-break: normal;
+		word-break: break-word;
 	}
 </style>

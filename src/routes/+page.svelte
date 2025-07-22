@@ -324,9 +324,5 @@
 		.component-grid {
 			grid-template-columns: 1fr;
 		}
-
-		.install-steps {
-			grid-template-columns: 1fr;
-		}
 	}
 </style>
