@@ -21,16 +21,24 @@
 
 	async function updatePosition() {
 		if (!triggerEl || !popoverEl) return;
-		const { x, y } = await computePosition(triggerEl, popoverEl, {
+
+		const {
+			x,
+			y,
+			placement: resolvedPlacement
+		} = await computePosition(triggerEl, popoverEl, {
 			placement,
-			middleware: [offset(8), flip(), shift()]
+			middleware: [offset(12), flip(), shift()]
 		});
+
 		Object.assign(popoverEl.style, {
 			left: `${x}px`,
 			top: `${y}px`
 		});
-	}
 
+		// ⬅️ 実際のplacement（top, bottomなど）を属性にセット
+		popoverEl.setAttribute('data-placement', resolvedPlacement);
+	}
 	function toggle() {
 		open = !open;
 	}
@@ -101,6 +109,7 @@
 			bind:this={popoverEl}
 			class="floating-popover"
 			transition:fade={{ duration: 150 }}
+			data-placement={placement}
 			role="tooltip"
 			tabindex="-1"
 		>
@@ -120,8 +129,47 @@
 		border-radius: 6px;
 		font-size: 0.75rem;
 		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-		border: 1px solid var(--color-primary-100-900);
+		border: 1px solid var(--color-primary-200-800);
 		max-width: 260px;
 		white-space: normal;
+	}
+	.floating-popover::after {
+		content: '';
+		position: absolute;
+		width: 0;
+		height: 0;
+		border-style: solid;
+	}
+
+	/* top（下向き矢印） */
+	.floating-popover[data-placement='top']::after {
+		bottom: -6px;
+		left: calc(50% - 6px);
+		border-width: 6px 6px 0 6px;
+		border-color: var(--color-primary-200-800) transparent transparent transparent;
+	}
+
+	/* bottom（上向き矢印） */
+	.floating-popover[data-placement='bottom']::after {
+		top: -6px;
+		left: calc(50% - 6px);
+		border-width: 0 6px 6px 6px;
+		border-color: transparent transparent var(--color-primary-200-800) transparent;
+	}
+
+	/* left（右向き矢印） */
+	.floating-popover[data-placement='left']::after {
+		right: -6px;
+		top: calc(50% - 6px);
+		border-width: 6px 0 6px 6px;
+		border-color: transparent transparent transparent var(--color-primary-200-800);
+	}
+
+	/* right（左向き矢印） */
+	.floating-popover[data-placement='right']::after {
+		left: -6px;
+		top: calc(50% - 6px);
+		border-width: 6px 6px 6px 0;
+		border-color: transparent var(--color-primary-200-800) transparent transparent;
 	}
 </style>
