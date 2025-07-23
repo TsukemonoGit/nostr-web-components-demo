@@ -1,105 +1,149 @@
 <script lang="ts">
 	import { onMount, onDestroy, untrack, type Snippet } from 'svelte';
-	import { computePosition, offset, flip, shift, autoUpdate } from '@floating-ui/dom';
+	import {
+		computePosition,
+		offset,
+		flip,
+		shift,
+		autoUpdate,
+		type Placement
+	} from '@floating-ui/dom';
 	import { tick } from 'svelte';
-	import { fade } from 'svelte/transition'; // ←追加
+	import { fade } from 'svelte/transition';
+	import { browser } from '$app/environment';
 
 	interface Props {
-		placement?: 'top' | 'bottom' | 'right' | 'left';
+		placement?: Placement;
 		trigger?: Snippet;
 		children?: Snippet;
+		disabled?: boolean;
+		offset?: number;
+		duration?: number;
 	}
 
-	let { placement = 'top', trigger, children }: Props = $props();
+	let {
+		placement = 'top',
+		trigger,
+		children,
+		disabled = false,
+		offset: offsetValue = 12,
+		duration = 150
+	}: Props = $props();
 
 	let open = $state(false);
+	let triggerEl = $state<HTMLElement | null>(null);
+	let popoverEl = $state<HTMLElement | null>(null);
+	let cleanup: (() => void) | null = null;
 
-	// 普通の let で管理し、イベントハンドラで最新値を参照できるようにする
-	let triggerEl: HTMLElement | null = null;
-	// svelte-ignore non_reactive_update
-	let popoverEl: HTMLElement | null = null;
-
-	async function updatePosition() {
+	const updatePosition = async (): Promise<void> => {
 		if (!triggerEl || !popoverEl) return;
 
-		const {
-			x,
-			y,
-			placement: resolvedPlacement
-		} = await computePosition(triggerEl, popoverEl, {
-			placement,
-			middleware: [offset(12), flip(), shift()]
-		});
+		try {
+			const {
+				x,
+				y,
+				placement: resolvedPlacement
+			} = await computePosition(triggerEl, popoverEl, {
+				placement,
+				middleware: [offset(offsetValue), flip(), shift({ padding: 8 })]
+			});
 
-		Object.assign(popoverEl.style, {
-			left: `${x}px`,
-			top: `${y}px`
-		});
+			Object.assign(popoverEl.style, {
+				left: `${x}px`,
+				top: `${y}px`
+			});
 
-		// ⬅️ 実際のplacement（top, bottomなど）を属性にセット
-		popoverEl.setAttribute('data-placement', resolvedPlacement);
-	}
-	function toggle() {
+			popoverEl.setAttribute('data-placement', resolvedPlacement);
+		} catch (error) {
+			console.warn('Position update failed:', error);
+		}
+	};
+
+	const toggle = (): void => {
+		if (disabled) return;
 		open = !open;
-	}
+	};
 
-	function onClickOutside(event: MouseEvent) {
-		if (!open) return;
+	const close = (): void => {
+		open = false;
+	};
 
-		const path = event.composedPath?.() ?? [];
+	const handleClickOutside = (event: MouseEvent): void => {
+		if (!open || !browser) return;
 
-		if ((triggerEl && path.includes(triggerEl)) || (popoverEl && path.includes(popoverEl))) {
-			// トリガーかポップオーバー内クリックなら閉じない
+		const target = event.target as Element;
+		if (!target) return;
+
+		// ポップオーバー内のクリックは無視
+		if (popoverEl?.contains(target)) {
 			return;
 		}
 
-		open = false;
-	}
+		// トリガー内のクリックは無視（toggleで処理される）
+		if (triggerEl?.contains(target)) {
+			return;
+		}
 
-	onMount(() => {
-		// triggerEl と popoverEl は初期 null のため、autoUpdate は open時だけ呼ぶようにしたほうが安全
-		let autoUpdateCleanup: () => void | undefined;
+		// その他の場所のクリックで閉じる
+		close();
+	};
 
-		const updateAutoUpdate = () => {
-			autoUpdateCleanup?.();
-			if (triggerEl && popoverEl) {
-				autoUpdateCleanup = autoUpdate(triggerEl, popoverEl, updatePosition);
-			}
-		};
+	const handleEscape = (event: KeyboardEvent): void => {
+		if (event.key === 'Escape' && open) {
+			close();
+		}
+	};
 
-		const observer = new MutationObserver(() => {
-			updateAutoUpdate();
-		});
+	const setupAutoUpdate = (): void => {
+		cleanup?.();
+		if (open && triggerEl && popoverEl) {
+			cleanup = autoUpdate(triggerEl, popoverEl, updatePosition);
+		}
+	};
 
-		// popoverElの出現消失に合わせてautoUpdateを再設定
-		observer.observe(document.body, { childList: true, subtree: true });
+	onMount(async () => {
+		if (!browser) return;
 
-		window.addEventListener('click', onClickOutside, { capture: true });
+		await tick();
+		// captureフェーズではなく、通常のバブリングフェーズで処理
+		document.addEventListener('mousedown', handleClickOutside);
+		document.addEventListener('keydown', handleEscape);
+	});
 
-		onDestroy(() => {
-			autoUpdateCleanup?.();
-			observer.disconnect();
-			window.removeEventListener('click', onClickOutside, { capture: true });
-		});
+	onDestroy(() => {
+		if (!browser) return;
+
+		cleanup?.();
+		document.removeEventListener('mousedown', handleClickOutside);
+		document.removeEventListener('keydown', handleEscape);
 	});
 
 	$effect(() => {
-		if (open) {
+		if (open && triggerEl && popoverEl) {
 			untrack(() => {
-				tick().then(updatePosition);
-				tick().then(updatePosition);
+				updatePosition();
+				setupAutoUpdate();
 			});
+		} else {
+			cleanup?.();
 		}
+	});
+
+	$effect(() => {
+		return () => cleanup?.();
 	});
 </script>
 
-<div class="popover-wrapper" style="position: relative; display: inline-block;">
-	<!-- トリガースロット -->
+<div class="popover-wrapper">
 	<button
 		type="button"
 		bind:this={triggerEl}
 		onclick={toggle}
-		style="display: inline-block;    vertical-align: text-bottom; cursor: pointer;"
+		class="popover-trigger"
+		class:disabled
+		{disabled}
+		aria-expanded={open}
+		aria-haspopup="true"
 	>
 		{@render trigger?.()}
 	</button>
@@ -108,10 +152,11 @@
 		<div
 			bind:this={popoverEl}
 			class="floating-popover"
-			transition:fade={{ duration: 150 }}
+			transition:fade={{ duration }}
 			data-placement={placement}
 			role="tooltip"
 			tabindex="-1"
+			aria-live="polite"
 		>
 			{@render children?.()}
 		</div>
@@ -119,57 +164,91 @@
 </div>
 
 <style>
+	.popover-wrapper {
+		position: relative;
+		display: inline-block;
+	}
+
+	.popover-trigger {
+		display: inline-block;
+		vertical-align: text-bottom;
+		cursor: pointer;
+		background: none;
+		border: none;
+		padding: 0;
+		margin: 0;
+		font: inherit;
+		color: inherit;
+	}
+
+	.popover-trigger:disabled,
+	.popover-trigger.disabled {
+		cursor: not-allowed;
+		opacity: 0.5;
+	}
+
 	.floating-popover {
 		position: absolute;
-		z-index: 100;
+		z-index: 1000;
 		min-width: 14rem;
-
+		max-width: 260px;
 		background: var(--color-surface-50-950);
 		padding: 0.75rem;
 		border-radius: 6px;
 		font-size: 0.75rem;
-		box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-		border: 1px solid var(--color-primary-200-800);
-		max-width: 260px;
+		line-height: 1.4;
+		box-shadow:
+			0 4px 12px rgba(0, 0, 0, 0.15),
+			0 0 0 1px var(--color-primary-200-800);
 		white-space: normal;
+		word-wrap: break-word;
 	}
+
 	.floating-popover::after {
 		content: '';
 		position: absolute;
 		width: 0;
 		height: 0;
 		border-style: solid;
+		pointer-events: none;
 	}
 
-	/* top（下向き矢印） */
-	.floating-popover[data-placement='top']::after {
+	/* Arrow styles for different placements */
+	.floating-popover[data-placement^='top']::after {
 		bottom: -6px;
 		left: calc(50% - 6px);
 		border-width: 6px 6px 0 6px;
 		border-color: var(--color-primary-200-800) transparent transparent transparent;
 	}
 
-	/* bottom（上向き矢印） */
-	.floating-popover[data-placement='bottom']::after {
+	.floating-popover[data-placement^='bottom']::after {
 		top: -6px;
 		left: calc(50% - 6px);
 		border-width: 0 6px 6px 6px;
 		border-color: transparent transparent var(--color-primary-200-800) transparent;
 	}
 
-	/* left（右向き矢印） */
-	.floating-popover[data-placement='left']::after {
+	.floating-popover[data-placement^='left']::after {
 		right: -6px;
 		top: calc(50% - 6px);
 		border-width: 6px 0 6px 6px;
 		border-color: transparent transparent transparent var(--color-primary-200-800);
 	}
 
-	/* right（左向き矢印） */
-	.floating-popover[data-placement='right']::after {
+	.floating-popover[data-placement^='right']::after {
 		left: -6px;
 		top: calc(50% - 6px);
 		border-width: 6px 6px 6px 0;
 		border-color: transparent var(--color-primary-200-800) transparent transparent;
+	}
+
+	/* Focus styles for accessibility */
+	.popover-trigger:focus-visible {
+		outline: 2px solid var(--color-primary-500);
+		outline-offset: 2px;
+	}
+
+	.floating-popover:focus {
+		outline: none;
 	}
 </style>
