@@ -3,22 +3,6 @@
 
 	import { resolveToNoteId } from '$lib/utils/utils';
 
-	// プレイグラウンド用のプロパティ
-	let playgroundProps = $state({
-		id: 'nevent1qvzqqqqqqypzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qyxhwumn8ghj77tpvf6jumt9qyv8wumn8ghj7un9d3shjtnddakk7um5wgh8q6twdvqzq673ld76k3sn9nuflzqxgyz2ht9lkh0a3qun9vxv7frfhsv4pvsph7jzvj',
-		relays: 'wss://nfrelay.app,wss://nos.lol',
-		href: '',
-		target: '_blank',
-		noLink: false,
-		theme: 'auto',
-		height: '',
-		display: 'card'
-	});
-
-	/* 	$effect(() => {
-		console.log('Props updated:', playgroundProps);
-	}); */
-
 	const nostrNoteConfig = {
 		title: 'インタラクティブプレイグラウンド',
 		description: 'プロパティを変更して見た目を試してみてください',
@@ -124,7 +108,7 @@
 	};
 </script>
 
-<h2 class="text-center h2">nostr-note コンポーネント説明とデモ</h2>
+<h2 class="text-center h2">nostr-note コンポーネント</h2>
 
 <InteractivePlayground config={nostrNoteConfig}>
 	{#snippet preview(props)}
@@ -146,42 +130,6 @@
 >
 
 <style>
-	section {
-		margin-bottom: 3rem;
-		padding: 1.5rem 1rem;
-		border-radius: 0.75rem;
-		background-color: var(--color-surface-100-900);
-		box-shadow: 0 1px 4px rgb(0 0 0 / 0.05);
-	}
-
-	ul {
-		display: flex;
-		flex-direction: column;
-
-		gap: 1rem;
-		margin: 0;
-		padding: 1em 0;
-	}
-
-	li {
-		background-color: var(--color-surface-100-900);
-		border: 1px solid var(--color-surface-200-800);
-		border-radius: 0.75rem;
-		padding: 0.75rem 1rem;
-		font-size: 0.95rem;
-		line-height: 1.6;
-		color: var(--color-surface-900-50);
-		box-shadow: 0 1px 2px rgb(0 0 0 / 0.05);
-	}
-
-	li strong {
-		font-size: 0.875rem;
-		font-weight: 700;
-		color: var(--color-primary-700-300);
-		display: inline-block;
-		min-width: 5rem;
-	}
-
 	nostr-note {
 		display: block;
 		max-width: 650px;
@@ -190,11 +138,5 @@
 		box-shadow: 0 4px 12px rgb(0 0 0 / 0.08);
 		background-color: var(--color-surface-50-950);
 		transition: box-shadow 0.25s ease;
-	}
-
-	.demo-section {
-		background: var(--color-surface-50-950);
-		border-radius: 16px;
-		box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 	}
 </style>
