@@ -2,7 +2,9 @@
 
 <script lang="ts">
 	import { browser } from '$app/environment';
+	import { CircleQuestionMark } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
+	import FloatingPopover from './FloatingPopover.svelte';
 
 	interface PlaygroundConfig<T = Record<string, any>> {
 		title: string;
@@ -22,6 +24,7 @@
 		placeholder?: string;
 		options?: Array<{ value: any; label: string }>;
 		group?: string;
+		help?: string; // ヘルプテキストを追加
 	}
 
 	let {
@@ -138,7 +141,21 @@
 
 					{#each props as propConfig}
 						<div class="control-group">
-							<label for="pg-{propConfig.key}">{propConfig.label}</label>
+							<label for="pg-{propConfig.key}"
+								>{propConfig.label}
+								{#if propConfig.help}
+									<FloatingPopover placement="top">
+										{#snippet trigger()}
+											<CircleQuestionMark
+												class="text-primary-800-200 hover:text-primary-600-400"
+												size="20"
+											/>
+										{/snippet}
+
+										{propConfig.help}
+									</FloatingPopover>
+								{/if}</label
+							>
 
 							{#if propConfig.type === 'text'}
 								<input

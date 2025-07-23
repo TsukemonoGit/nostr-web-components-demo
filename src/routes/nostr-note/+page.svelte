@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { browser } from '$app/environment';
 	import InteractivePlayground from '$lib/components/InteractivePlayground.svelte';
 
 	import { resolveToNoteId } from '$lib/utils/utils';
@@ -15,28 +14,6 @@
 		height: '',
 		display: 'card'
 	});
-
-	// コード生成用の関数
-	function generateCode(props: typeof playgroundProps) {
-		let attributes: string[] = [`id="${props.id}"`];
-
-		if (props.relays) {
-			const relaysArray = props.relays
-				.split(',')
-				.map((r) => `"${r.trim()}"`)
-				.join(', ');
-			attributes.push(`relays={[${relaysArray}]}`);
-		}
-		if (props.href) attributes.push(`href="${props.href}"`);
-		if (props.target !== '_blank') attributes.push(`target="${props.target}"`);
-		if (props.noLink) attributes.push(`noLink={true}`);
-
-		if (props.theme !== 'auto') attributes.push(`theme="${props.theme}"`);
-		if (props.height) attributes.push(`height="${props.height}"`);
-		if (props.display !== 'card') attributes.push(`display="${props.display}"`);
-
-		return `<nostr-note\n  ${attributes.join('\n  ')}\n></nostr-note>`;
-	}
 
 	/* 	$effect(() => {
 		console.log('Props updated:', playgroundProps);
@@ -60,20 +37,23 @@
 			{
 				key: 'id',
 				label: 'Event ID',
-				type: 'text' as const,
-				placeholder: 'nevent1...'
+				type: 'text' as const, // ←ここを明示的に as const でリテラル型に
+				placeholder: 'nevent1...',
+				help: '表示するNostrイベントのID（note1~,nevent1~）（必須）'
 			},
 			{
 				key: 'relays',
 				label: 'Relays (カンマ区切り)',
 				type: 'text' as const,
-				placeholder: 'wss://relay1.com,wss://relay2.com'
+				placeholder: 'wss://relay1.com,wss://relay2.com',
+				help: '取得に使うRelayのURL配列（省略可）'
 			},
 			{
 				key: 'href',
 				label: 'カスタムURL',
 				type: 'text' as const,
-				placeholder: 'https://example.com'
+				placeholder: 'https://example.com',
+				help: 'イベントリンクのURL（省略時は自動生成）'
 			},
 			{
 				key: 'target',
@@ -84,7 +64,14 @@
 					{ value: '_self', label: '_self' },
 					{ value: '_parent', label: '_parent' },
 					{ value: '_top', label: '_top' }
-				]
+				],
+				help: 'リンクのターゲット属性（例: "_blank"）'
+			},
+			{
+				key: 'noLink',
+				label: 'リンクを無効化 (noLink)',
+				type: 'checkbox' as const,
+				help: 'trueにするとリンク表示を無効化'
 			},
 			{
 				key: 'theme',
@@ -94,7 +81,15 @@
 					{ value: 'auto', label: 'auto' },
 					{ value: 'light', label: 'light' },
 					{ value: 'dark', label: 'dark' }
-				]
+				],
+				help: '"auto"（デフォルト）/ "dark" / "light"'
+			},
+			{
+				key: 'height',
+				label: 'Height',
+				type: 'text' as const,
+				placeholder: '400px',
+				help: '表示高さ（任意）'
 			},
 			{
 				key: 'display',
@@ -103,18 +98,8 @@
 				options: [
 					{ value: 'card', label: 'card' },
 					{ value: 'compact', label: 'compact' }
-				]
-			},
-			{
-				key: 'height',
-				label: 'Height',
-				type: 'text' as const,
-				placeholder: '400px'
-			},
-			{
-				key: 'noLink',
-				label: 'リンクを無効化 (noLink)',
-				type: 'checkbox' as const
+				],
+				help: '表示スタイル。"card"(デフォルト) / "compact"'
 			}
 		],
 		generateCode: (props: any) => {
@@ -141,56 +126,6 @@
 
 <h2 class="text-center h2">nostr-note コンポーネント説明とデモ</h2>
 
-<section class="demo-section p-2 sm:p-8">
-	<h3 class="h3">主なプロパティ</h3>
-	<ul>
-		<li>
-			<strong>id</strong>
-
-			<div class="inline-flex">表示するNostrイベントのID（必須）</div>
-		</li>
-		<li>
-			<strong>relays</strong>
-
-			<div class="inline-flex">取得に使うRelayのURL配列（省略可）</div>
-		</li>
-		<li>
-			<strong>href</strong>
-
-			<div class="inline-flex">イベントリンクのURL（省略時は自動生成）</div>
-		</li>
-		<li>
-			<strong>target</strong>
-
-			<div class="inline-flex">リンクのターゲット属性（例: "_blank"）</div>
-		</li>
-		<li>
-			<strong>noLink</strong>
-
-			<div class="inline-flex">trueにするとリンク表示を無効化</div>
-		</li>
-		<li>
-			<strong>className</strong>
-
-			<div class="inline-flex">コンテナに付与するクラス名</div>
-		</li>
-		<li>
-			<strong>theme</strong>
-
-			<div class="inline-flex">"auto"（デフォルト）/ "dark" / "light"</div>
-		</li>
-		<li>
-			<strong>height</strong>
-
-			<div class="inline-flex">表示高さ（任意）</div>
-		</li>
-		<li>
-			<strong>display</strong>
-
-			<div class="inline-flex">表示スタイル。"card"(デフォルト) / "compact"</div>
-		</li>
-	</ul>
-</section>
 <InteractivePlayground config={nostrNoteConfig}>
 	{#snippet preview(props)}
 		{#if resolveToNoteId(props.id || nostrNoteConfig.defaultProps.id) !== null}
