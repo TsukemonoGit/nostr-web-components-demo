@@ -29,7 +29,7 @@
 	bind:this={dialog}
 	onclick={handleBackdropClick}
 	data-dialog
-	class="fixed top-0 left-0 z-10 m-0 h-full max-h-none w-42 max-w-none space-y-4 bg-surface-100-900 p-4 text-inherit backdrop:bg-surface-50/75 dark:backdrop:bg-surface-950/75"
+	class="fixed top-0 left-0 z-10 m-0 h-full max-h-none w-50 max-w-none space-y-4 bg-surface-100-900 p-4 text-inherit backdrop:bg-surface-50/75 dark:backdrop:bg-surface-950/75"
 >
 	<div data-dialog-content class="flex h-full flex-col">
 		<!-- Header with close button -->

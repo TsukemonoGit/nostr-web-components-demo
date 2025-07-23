@@ -4,6 +4,7 @@
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import SideMenu from '$lib/components/SideMenu.svelte';
 	import '../app.css';
+	import Footer from '$lib/components/Footer.svelte';
 
 	let { children } = $props();
 	let isMenuOpen = $state(false);
@@ -12,7 +13,7 @@
 
 <div class="grid h-screen grid-rows-[auto_1fr_auto]">
 	<!-- Header -->
-	<header class="bg-surface-100-900 p-2">
+	<header class="border-b border-surface-300-700 bg-surface-100-900 p-3">
 		<div class="flex items-center justify-between">
 			<!-- 左：モバイルメニュー + タイトル -->
 			<div class="flex items-center gap-4 text-surface-950-50">
@@ -28,7 +29,7 @@
 				</Sidebar>
 				<!-- タイトル -->
 				<h1 class="h5 sm:h3">
-					<a href="/" class=" hover:underline"> Nostr Web Components </a>
+					<a href="/" class="hover:underline"> Nostr Web Components </a>
 				</h1>
 			</div>
 
@@ -38,12 +39,13 @@
 			</div>
 		</div>
 	</header>
+
 	<!-- Main layout: sidebar + content -->
 	<div class="grid grid-cols-1 overflow-hidden md:grid-cols-[200px_1fr]">
 		<!-- Sidebar -->
 		<aside
-			class={`hidden overflow-y-auto border-r border-dashed border-surface-300-700 
-				p-4 md:static md:block
+			class={`hidden overflow-y-auto border-r border-dashed border-surface-300-700  
+				p-4 md:static md:block 
 				`}
 		>
 			<SideMenu />
@@ -55,6 +57,6 @@
 		</main>
 	</div>
 
-	<!-- Footer -->
-	<footer class="bg-blue-500 p-4 text-center">(footer)</footer>
+	<!-- Footer 
+	<Footer />-->
 </div>

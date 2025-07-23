@@ -118,12 +118,6 @@
 </div>
 
 <style>
-	.container {
-		max-width: 1200px;
-		margin: 0 auto;
-		padding: 2rem;
-	}
-
 	.hero {
 		text-align: center;
 		padding: 3rem 0.5rem;
@@ -247,10 +241,6 @@
 	@media (max-width: 768px) {
 		.hero p {
 			font-size: 1rem;
-		}
-
-		.container {
-			padding: 0rem;
 		}
 
 		.component-grid {

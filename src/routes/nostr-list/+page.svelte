@@ -3,9 +3,9 @@
 
 	// nostr-list専用の設定
 	const nostrListConfig = {
-		title: 'インタラクティブプレイグラウンド',
+		title: 'nostr-list インタラクティブプレイグラウンド',
 		description: 'プロパティを変更して見た目を試してみてください',
-		componentTag: 'nostr-list',
+
 		defaultProps: {
 			filters: `[{"authors":["84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5"]}]`,
 			limit: '3',

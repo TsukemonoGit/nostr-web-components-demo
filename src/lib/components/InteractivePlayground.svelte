@@ -9,7 +9,6 @@
 	interface PlaygroundConfig<T = Record<string, any>> {
 		title: string;
 		description?: string;
-		componentTag: string;
 		defaultProps: T;
 		propConfigs: PropConfig[];
 		generateCode: (props: T) => string;

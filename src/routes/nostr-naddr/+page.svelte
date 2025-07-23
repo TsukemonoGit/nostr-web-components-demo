@@ -3,11 +3,11 @@
 
 	// nostr-naddr専用の設定
 	const nostrNaddrConfig = {
-		title: 'Nostr Naddr プレイグラウンド',
-		description: 'Nostrのnaddr形式のコンテンツプレビューを試せます',
-		componentTag: 'nostr-naddr',
+		title: 'nostr-naddr インタラクティブプレイグラウンド',
+		description: 'プロパティを変更して見た目を試してみてください',
+
 		customInstructions:
-			'📍 アドレス指定（naddr）または🔧 個別指定（user + kind + id ）のどちらか一方を設定してください',
+			'📍 アドレス指定（naddr）または🔧 個別指定（user + kind + identifier ）のどちらか一方を設定してください',
 		groupTitles: {
 			address: '📍 アドレス指定 (オプション1)',
 			components: '🔧 個別指定 (オプション2)',
@@ -15,13 +15,13 @@
 		},
 		groupDescriptions: {
 			address: 'naddr形式でアドレスを直接指定',
-			components: 'user、kind、idを個別に指定（user、kind必須）',
+			components: 'user、kind、identifierを個別に指定（user、kind必須）',
 			other: '表示やリンクの設定'
 		},
 		defaultProps: {
 			naddr: '',
 			user: 'mono@tsukemonogit.github.io',
-			id: 'monomoji',
+			identifier: 'monomoji',
 			kind: '30003',
 			relays: 'wss://nfrelay.app,wss://nos.lol',
 			itemsPerPage: 3,
@@ -57,8 +57,8 @@
 				group: 'components'
 			},
 			{
-				key: 'id',
-				label: 'ID (dtag/identifier) - オプション2',
+				key: 'identifier',
+				label: 'identifier (dtag) - オプション2',
 				type: 'text' as const,
 				placeholder: 'article-title-example',
 				group: 'components'
@@ -144,12 +144,12 @@
 		generateCode: (props: any) => {
 			let attributes: string[] = [];
 
-			// naddrまたはuser/id/kindのいずれかを設定
+			// naddrまたはuser/identifier/kindのいずれかを設定
 			if (props.naddr) {
 				attributes.push(`naddr="${props.naddr}"`);
 			} else {
 				if (props.user) attributes.push(`user="${props.user}"`);
-				if (props.id) attributes.push(`id="${props.id}"`);
+				if (props.identifier) attributes.push(`identifier="${props.identifier}"`);
 				if (props.kind) attributes.push(`kind="${props.kind}"`);
 			}
 			if (props.itemsPerPage) attributes.push(`itemsPerPage="${props.itemsPerPage}"`);
@@ -177,12 +177,12 @@
 			// naddrまたはdefaultのnaddrを使用
 			previewProps.naddr = props.naddr || defaultProps.naddr;
 
-			// user/id/kindが全て設定されている場合のみ適用
+			// user/identifier/kindが全て設定されている場合のみ適用
 			if (props.user && props.kind) {
 				previewProps.user = props.user;
 
 				previewProps.kind = props.kind;
-				previewProps.id = props.id || '';
+				previewProps.identifier = props.identifier || '';
 				previewProps.naddr = undefined; // naddrは無視
 			}
 
@@ -212,7 +212,7 @@
 		<nostr-naddr
 			naddr={props.naddr}
 			user={props.user}
-			id={props.id}
+			identifier={props.identifier}
 			kind={props.kind}
 			relays={props.relays}
 			href={props.href}

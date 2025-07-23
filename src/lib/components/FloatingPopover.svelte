@@ -68,7 +68,7 @@
 		open = false;
 	};
 
-	const handleClickOutside = (event: MouseEvent): void => {
+	const handleClickOutside = (event: Event): void => {
 		if (!open || !browser) return;
 
 		const target = event.target as Element;
@@ -105,8 +105,8 @@
 		if (!browser) return;
 
 		await tick();
-		// captureフェーズではなく、通常のバブリングフェーズで処理
-		document.addEventListener('mousedown', handleClickOutside);
+		// スマホ対応：pointerdownを使用してタッチとマウスの両方に対応
+		document.addEventListener('pointerdown', handleClickOutside);
 		document.addEventListener('keydown', handleEscape);
 	});
 
@@ -114,7 +114,7 @@
 		if (!browser) return;
 
 		cleanup?.();
-		document.removeEventListener('mousedown', handleClickOutside);
+		document.removeEventListener('pointerdown', handleClickOutside);
 		document.removeEventListener('keydown', handleEscape);
 	});
 

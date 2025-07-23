@@ -4,9 +4,9 @@
 	import { resolveToNoteId } from '$lib/utils/utils';
 
 	const nostrNoteConfig = {
-		title: 'インタラクティブプレイグラウンド',
+		title: 'nostr-note インタラクティブプレイグラウンド',
 		description: 'プロパティを変更して見た目を試してみてください',
-		componentTag: 'nostr-note',
+
 		defaultProps: {
 			id: 'nevent1qvzqqqqqqypzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qyxhwumn8ghj77tpvf6jumt9qyv8wumn8ghj7un9d3shjtnddakk7um5wgh8q6twdvqzq673ld76k3sn9nuflzqxgyz2ht9lkh0a3qun9vxv7frfhsv4pvsph7jzvj',
 			relays: 'wss://nfrelay.app,wss://nos.lol',
@@ -107,8 +107,6 @@
 		}
 	};
 </script>
-
-<h2 class="text-center h2">nostr-note コンポーネント</h2>
 
 <InteractivePlayground config={nostrNoteConfig}>
 	{#snippet preview(props)}

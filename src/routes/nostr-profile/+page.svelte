@@ -3,9 +3,9 @@
 
 	// nostr-profile専用の設定（例）
 	const nostrProfileConfig = {
-		title: 'インタラクティブプレイグラウンド',
+		title: 'nostr-profile インタラクティブプレイグラウンド',
 		description: 'プロパティを変更して見た目を試してみてください',
-		componentTag: 'nostr-profile',
+
 		defaultProps: {
 			user: 'mono@tsukemonogit.github.io',
 			relays: 'wss://nfrelay.app,wss://nos.lol',
