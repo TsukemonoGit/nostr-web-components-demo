@@ -75,6 +75,7 @@
 		}
 	},
 	"playground": {
+		"refreshPreview": "Refresh",
 		"title": "{target} Interactive Playground",
 		"description": "Change the properties to preview the appearance",
 		"usageLabel": "📝 Usage:",

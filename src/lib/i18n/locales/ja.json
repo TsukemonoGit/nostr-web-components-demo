@@ -75,6 +75,7 @@
 		}
 	},
 	"playground": {
+		"refreshPreview": "更新",
 		"title": "{target} インタラクティブプレイグラウンド",
 		"description": "プロパティを変更して見た目を試してみてください",
 		"usageLabel": "📝 使い方:",

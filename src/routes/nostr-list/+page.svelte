@@ -104,7 +104,7 @@
 			if (props.noLink) attributes.push(`noLink={true}`);
 			if (props.theme !== 'auto') attributes.push(`theme="${props.theme}"`);
 			if (props.display !== 'list') attributes.push(`display="${props.display}"`);
-			if (props.limit && props.limit !== '10') attributes.push(`limit={${props.limit}}`);
+			if (props.limit && props.limit !== '0') attributes.push(`limit={${props.limit}}`);
 			if (props.display !== 'card') attributes.push(`display="${props.display}"`);
 
 			return `<nostr-list\n  ${attributes.join('\n  ')}\n></nostr-list>`;
@@ -116,7 +116,7 @@
 	>{#snippet preview(props)}
 		<nostr-list
 			filters={props.filters || nostrListConfig.defaultProps.filters}
-			limit={props.limit ? parseInt(props.limit) : nostrListConfig.defaultProps.limit}
+			limit={props.limit || nostrListConfig.defaultProps.limit}
 			relays={props.relays
 				? props.relays.split(',').map((r: string) => r.trim())
 				: nostrListConfig.defaultProps.relays.split(',').map((r) => r.trim())}

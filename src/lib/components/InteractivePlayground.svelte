@@ -2,8 +2,8 @@
 
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { CircleQuestionMark } from '@lucide/svelte';
-	import type { Snippet } from 'svelte';
+	import { CircleQuestionMark, RefreshCw } from '@lucide/svelte';
+	import { tick, type Snippet } from 'svelte';
 	import FloatingPopover from './FloatingPopover.svelte';
 	import { t } from '@konemono/svelte5-i18n';
 
@@ -101,6 +101,14 @@
 
 		return props;
 	}
+
+	let showPreview = $state(true);
+
+	async function refreshPreview() {
+		showPreview = false;
+		await tick(); // DOMの更新待ち
+		showPreview = true;
+	}
 </script>
 
 <section class="playground-section p-2 sm:p-8">
@@ -187,9 +195,14 @@
 		</div>
 
 		<div class="preview-panel">
-			<h3 class="mb-4 h3">{$t('playground.preview')}</h3>
+			<h3 class="mb-4 h3">
+				{$t('playground.preview')}
+				<button class="refresh-btn" onclick={refreshPreview}>
+					<RefreshCw size={20} />{$t('playground.refreshPreview')}
+				</button>
+			</h3>
 			<div class="preview-container">
-				{#if browser}
+				{#if browser && showPreview}
 					{@render preview(generateComponentProps())}
 				{/if}
 			</div>
@@ -263,13 +276,6 @@
 		box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
 	}
 
-	.checkbox-label {
-		display: flex;
-		align-items: center;
-		cursor: pointer;
-		font-weight: 500;
-	}
-
 	.control-checkbox {
 		margin-right: 0.75rem;
 		transform: scale(1.1);
@@ -338,5 +344,22 @@
 		color: var(--color-surface-700-300);
 		margin-bottom: 1rem;
 		font-style: italic;
+	}
+	.refresh-btn {
+		display: inline-flex;
+		vertical-align: bottom;
+		align-items: anchor-center;
+		gap: 4px;
+		flex-wrap: wrap;
+		background: var(--color-primary-500);
+		color: white;
+		border: none;
+		padding: 0.5rem 1rem;
+		border-radius: 6px;
+		cursor: pointer;
+		font-size: 0.875rem;
+	}
+	.refresh-btn:hover {
+		background: var(--color-primary-600);
 	}
 </style>
