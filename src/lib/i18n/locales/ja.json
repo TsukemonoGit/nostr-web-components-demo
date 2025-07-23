@@ -118,6 +118,14 @@
 			"placeholder": "mynote",
 			"help": "イベントのidentifierを指定します（任意）"
 		},
+		"filters": {
+			"placeholder": "[{\"authors\":[\"84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5\"]}]",
+			"help": "NostrフィルターのJSON文字列。\n例: [{\"authors\": [\"<pubkey>\"]}, {\"kinds\": [1]}]"
+		},
+		"limit": {
+			"placeholder": "10",
+			"help": "取得するイベントの最大件数（任意）"
+		},
 		"relays": {
 			"placeholder": "wss://relay1.com,wss://relay2.com",
 			"help": "取得に使用するRelayのURLリスト（省略可）"

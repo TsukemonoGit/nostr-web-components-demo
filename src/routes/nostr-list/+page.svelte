@@ -1,10 +1,11 @@
 <script lang="ts">
 	import InteractivePlayground from '$lib/components/InteractivePlayground.svelte';
+	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-list専用の設定
 	const nostrListConfig = {
-		title: 'nostr-list インタラクティブプレイグラウンド',
-		description: 'プロパティを変更して見た目を試してみてください',
+		title: $t('playground.title', { target: 'nostr-list' }),
+		description: $t('playground.description'),
 
 		defaultProps: {
 			filters: `[{"authors":["84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5"]}]`,
@@ -19,70 +20,73 @@
 		propConfigs: [
 			{
 				key: 'filters',
-				label: 'List filters',
 				type: 'text' as const,
-				placeholder:
-					'[{"authors":["84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5"]}]'
+				placeholder: $t('props.filters.placeholder'),
+				help: $t('props.filters.help')
 			},
 			{
 				key: 'limit',
-				label: 'Limit',
+
 				type: 'text' as const,
-				placeholder: '10'
+				placeholder: $t('props.limit.placeholder'),
+				help: $t('props.limit.help')
 			},
 			{
 				key: 'relays',
-				label: 'Relays (カンマ区切り)',
 				type: 'text' as const,
-				placeholder: 'wss://relay1.com,wss://relay2.com'
+				placeholder: $t('props.relays.placeholder'),
+				help: $t('props.relays.help')
 			},
 			{
 				key: 'href',
-				label: 'カスタムURL',
+
 				type: 'text' as const,
-				placeholder: 'https://example.com'
+				placeholder: $t('props.href.placeholder'),
+				help: $t('props.href.help')
 			},
 			{
 				key: 'target',
-				label: 'Target',
 				type: 'select' as const,
 				options: [
 					{ value: '_blank', label: '_blank' },
 					{ value: '_self', label: '_self' },
 					{ value: '_parent', label: '_parent' },
 					{ value: '_top', label: '_top' }
-				]
+				],
+				help: $t('props.target.help')
+			},
+			{
+				key: 'noLink',
+
+				type: 'checkbox' as const,
+				help: $t('props.noLink.help')
 			},
 			{
 				key: 'theme',
-				label: 'Theme',
+
 				type: 'select' as const,
 				options: [
 					{ value: 'auto', label: 'auto' },
 					{ value: 'light', label: 'light' },
 					{ value: 'dark', label: 'dark' }
-				]
+				],
+				help: $t('props.theme.help')
+			},
+			{
+				key: 'height',
+
+				type: 'text' as const,
+				placeholder: $t('props.height.placeholder'),
+				help: $t('props.height.help')
 			},
 			{
 				key: 'display',
-				label: 'Display',
 				type: 'select' as const,
 				options: [
 					{ value: 'card', label: 'card' },
 					{ value: 'compact', label: 'compact' }
-				]
-			},
-
-			{
-				key: 'height',
-				label: 'Height',
-				type: 'text' as const,
-				placeholder: '400px'
-			},
-			{
-				key: 'noLink',
-				label: 'リンクを無効化 (noLink)',
-				type: 'checkbox' as const
+				],
+				help: $t('props.display.help')
 			}
 		],
 		generateCode: (props: any) => {

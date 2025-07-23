@@ -118,6 +118,14 @@
 			"placeholder": "mynote",
 			"help": "Specify the event's identifier (optional)"
 		},
+		"filters": {
+			"placeholder": "[{\"authors\":[\"84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5\"]}]",
+			"help": "JSON string of Nostr filters.\nExample: [{\"authors\": [\"<pubkey>\"]}, {\"kinds\": [1]}]"
+		},
+		"limit": {
+			"placeholder": "10",
+			"help": "Maximum number of events to fetch (optional)"
+		},
 		"relays": {
 			"placeholder": "wss://relay1.com,wss://relay2.com",
 			"help": "List of relay URLs used for fetching (optional)"
