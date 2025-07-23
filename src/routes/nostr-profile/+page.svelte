@@ -1,10 +1,11 @@
 <script lang="ts">
 	import InteractivePlayground from '$lib/components/InteractivePlayground.svelte';
+	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-profile専用の設定（例）
 	const nostrProfileConfig = {
-		title: 'nostr-profile インタラクティブプレイグラウンド',
-		description: 'プロパティを変更して見た目を試してみてください',
+		title: $t('playground.title', { target: 'nostr-profile' }),
+		description: $t('playground.description'),
 
 		defaultProps: {
 			user: 'mono@tsukemonogit.github.io',
@@ -19,63 +20,71 @@
 		propConfigs: [
 			{
 				key: 'user',
-				label: 'Public Key or nip05adress',
+
 				type: 'text' as const,
-				placeholder: 'npub1...'
+				placeholder: $t('props.user.placeholder'),
+				help: $t('props.user.help')
 			},
 			{
 				key: 'relays',
-				label: 'Relays (カンマ区切り)',
+
 				type: 'text' as const,
-				placeholder: 'wss://relay1.com,wss://relay2.com'
+				placeholder: $t('props.relays.placeholder'),
+				help: $t('props.relays.help')
 			},
 			{
 				key: 'href',
-				label: 'カスタムURL',
+
 				type: 'text' as const,
-				placeholder: 'https://example.com'
+				placeholder: $t('props.href.placeholder'),
+				help: $t('props.href.help')
 			},
 			{
 				key: 'target',
-				label: 'Target',
+
 				type: 'select' as const,
 				options: [
 					{ value: '_blank', label: '_blank' },
 					{ value: '_self', label: '_self' },
 					{ value: '_parent', label: '_parent' },
 					{ value: '_top', label: '_top' }
-				]
+				],
+				help: $t('props.target.help')
+			},
+			{
+				key: 'noLink',
+
+				type: 'checkbox' as const,
+				help: $t('props.noLink.help')
 			},
 			{
 				key: 'theme',
-				label: 'Theme',
+
 				type: 'select' as const,
 				options: [
 					{ value: 'auto', label: 'auto' },
 					{ value: 'light', label: 'light' },
 					{ value: 'dark', label: 'dark' }
-				]
+				],
+				help: $t('props.theme.help')
+			},
+			{
+				key: 'height',
+
+				type: 'text' as const,
+				placeholder: '400px',
+				help: $t('props.height.help')
 			},
 			{
 				key: 'display',
-				label: 'Display',
+
 				type: 'select' as const,
 				options: [
 					{ value: 'card', label: 'card' },
 					{ value: 'compact', label: 'compact' },
 					{ value: 'name', label: 'name' }
-				]
-			},
-			{
-				key: 'height',
-				label: 'Height',
-				type: 'text' as const,
-				placeholder: '400px'
-			},
-			{
-				key: 'noLink',
-				label: 'リンクを無効化 (noLink)',
-				type: 'checkbox' as const
+				],
+				help: $t('props.display.help')
 			}
 		],
 		generateCode: (props: any) => {

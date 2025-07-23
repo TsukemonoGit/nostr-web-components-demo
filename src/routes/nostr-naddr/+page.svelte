@@ -1,22 +1,22 @@
 <script lang="ts">
 	import InteractivePlayground from '$lib/components/InteractivePlayground.svelte';
+	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-naddr専用の設定
 	const nostrNaddrConfig = {
-		title: 'nostr-naddr インタラクティブプレイグラウンド',
-		description: 'プロパティを変更して見た目を試してみてください',
+		title: $t('playground.title', { target: 'nostr-profile' }),
+		description: $t('playground.description'),
 
-		customInstructions:
-			'📍 アドレス指定（naddr）または🔧 個別指定（user + kind + identifier ）のどちらか一方を設定してください',
+		customInstructions: $t('playground.naddr.instructions'),
 		groupTitles: {
-			address: '📍 アドレス指定 (オプション1)',
-			components: '🔧 個別指定 (オプション2)',
-			other: '⚙️ その他の設定'
+			address: $t('playground.naddr.groupTitles.address'),
+			components: $t('playground.naddr.groupTitles.components'),
+			other: $t('playground.naddr.groupTitles.other')
 		},
 		groupDescriptions: {
-			address: 'naddr形式でアドレスを直接指定',
-			components: 'user、kind、identifierを個別に指定（user、kind必須）',
-			other: '表示やリンクの設定'
+			address: $t('playground.naddr.groupDescriptions.address'),
+			components: $t('playground.naddr.groupDescriptions.components'),
+			other: $t('playground.naddr.groupDescriptions.other')
 		},
 		defaultProps: {
 			naddr: '',
@@ -36,67 +36,74 @@
 		propConfigs: [
 			{
 				key: 'naddr',
-				label: 'Naddr (オプション1)',
+
 				type: 'text' as const,
-				placeholder: 'naddr1...',
-				group: 'address'
+				placeholder: $t('props.naddr.placeholder'),
+				group: 'address',
+				help: $t('props.naddr.help')
 			},
 			{
 				key: 'user',
-				label: 'User (pubkey) - オプション2',
+
 				type: 'text' as const,
-				placeholder: 'npub1... または hex形式',
-				group: 'components'
+				placeholder: $t('props.user.placeholder'),
+				group: 'components',
+				help: $t('props.user.help')
 			},
 
 			{
 				key: 'kind',
-				label: 'Kind - オプション2',
+
 				type: 'text' as const,
-				placeholder: '30023',
-				group: 'components'
+				placeholder: $t('props.kind.placeholder'),
+				group: 'components',
+				help: $t('props.kind.help')
 			},
 			{
 				key: 'identifier',
-				label: 'identifier (dtag) - オプション2',
+
 				type: 'text' as const,
-				placeholder: 'article-title-example',
-				group: 'components'
+				placeholder: $t('props.identifier.placeholder'),
+				group: 'components',
+				help: $t('props.identifier.help')
 			},
 			{
 				key: 'itemsPerPage',
-				label: 'itemsPerPage',
+				placeholder: $t('props.itemsPerPage.placeholder'),
 				type: 'text' as const,
-				placeholder: '10',
-				group: 'other'
+				group: 'other',
+				help: $t('props.itemsPerPage.help')
 			},
 			{
 				key: 'sortOrder',
-				label: 'SortOrder',
+
 				type: 'select' as const,
 				options: [
 					{ value: 'normal', label: 'normal' },
 					{ value: 'reverse', label: 'reverse' }
 				],
-				group: 'other'
+				group: 'other',
+				help: $t('props.sortOrder.help')
 			},
 			{
 				key: 'relays',
-				label: 'Relays (カンマ区切り)',
+
 				type: 'text' as const,
-				placeholder: 'wss://relay1.com,wss://relay2.com',
+				placeholder: $t('props.relays.placeholder'),
+				help: $t('props.relays.help'),
 				group: 'other'
 			},
 			{
 				key: 'href',
-				label: 'カスタムURL',
+
 				type: 'text' as const,
-				placeholder: 'https://example.com',
+				placeholder: $t('props.href.placeholder'),
+				help: $t('props.href.help'),
 				group: 'other'
 			},
 			{
 				key: 'target',
-				label: 'Target',
+
 				type: 'select' as const,
 				options: [
 					{ value: '_blank', label: '_blank' },
@@ -104,22 +111,31 @@
 					{ value: '_parent', label: '_parent' },
 					{ value: '_top', label: '_top' }
 				],
-				group: 'other'
+				group: 'other',
+				help: $t('props.target.help')
+			},
+			{
+				key: 'noLink',
+
+				type: 'checkbox' as const,
+				group: 'other',
+				help: $t('props.noLink.help')
 			},
 			{
 				key: 'theme',
-				label: 'Theme',
+
 				type: 'select' as const,
 				options: [
 					{ value: 'auto', label: 'auto' },
 					{ value: 'light', label: 'light' },
 					{ value: 'dark', label: 'dark' }
 				],
-				group: 'other'
+				group: 'other',
+				help: $t('props.theme.help')
 			},
 			{
 				key: 'display',
-				label: 'Display',
+
 				type: 'select' as const,
 				options: [
 					{ value: 'card', label: 'card' },
@@ -129,16 +145,11 @@
 			},
 			{
 				key: 'height',
-				label: 'Height',
+
 				type: 'text' as const,
 				placeholder: '400px',
-				group: 'other'
-			},
-			{
-				key: 'noLink',
-				label: 'リンクを無効化 (noLink)',
-				type: 'checkbox' as const,
-				group: 'other'
+				group: 'other',
+				help: $t('props.height.help')
 			}
 		],
 		generateCode: (props: any) => {

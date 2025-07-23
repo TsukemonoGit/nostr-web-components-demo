@@ -5,6 +5,7 @@
 	import { CircleQuestionMark } from '@lucide/svelte';
 	import type { Snippet } from 'svelte';
 	import FloatingPopover from './FloatingPopover.svelte';
+	import { t } from '@konemono/svelte5-i18n';
 
 	interface PlaygroundConfig<T = Record<string, any>> {
 		title: string;
@@ -18,7 +19,6 @@
 
 	interface PropConfig {
 		key: string;
-		label: string;
 		type: 'text' | 'select' | 'checkbox' | 'textarea';
 		placeholder?: string;
 		options?: Array<{ value: any; label: string }>;
@@ -49,43 +49,35 @@
 		return groups;
 	});
 
-	// グループのタイトルを取得（設定で上書き可能）
+	// グループタイトル取得
 	function getGroupTitle(groupName: string): string {
-		// 設定にカスタムタイトルがあれば使用
 		const customTitles = (config as any).groupTitles;
-		if (customTitles && customTitles[groupName]) {
-			return customTitles[groupName];
-		}
+		if (customTitles && customTitles[groupName]) return customTitles[groupName];
 
-		// デフォルトのタイトル
 		switch (groupName) {
 			case 'address':
-				return '📍 アドレス指定 (オプション1)';
+				return $t('group.address.title');
 			case 'components':
-				return '🔧 コンポーネント指定 (オプション2)';
+				return $t('group.components.title');
 			case 'other':
-				return '⚙️ その他の設定';
+				return $t('group.other.title');
 			default:
 				return '';
 		}
 	}
 
-	// グループの説明を取得（設定で上書き可能）
+	// グループ説明取得
 	function getGroupDescription(groupName: string): string {
-		// 設定にカスタム説明があれば使用
 		const customDescriptions = (config as any).groupDescriptions;
-		if (customDescriptions && customDescriptions[groupName]) {
-			return customDescriptions[groupName];
-		}
+		if (customDescriptions && customDescriptions[groupName]) return customDescriptions[groupName];
 
-		// デフォルトの説明
 		switch (groupName) {
 			case 'address':
-				return 'naddr形式でアドレスを直接指定';
+				return $t('group.address.description');
 			case 'components':
-				return 'user、id、kindを個別に指定（3つすべて必要）';
+				return $t('group.components.description');
 			case 'other':
-				return '表示やリンクの設定';
+				return $t('group.other.description');
 			default:
 				return '';
 		}
@@ -112,16 +104,16 @@
 </script>
 
 <section class="playground-section p-2 sm:p-8">
-	<h2 class="text-center h2">🎮 {config.title}</h2>
+	<h2 class="text-center h2">{config.title}</h2>
+
 	{#if config.description}
 		<p class="mb-6 text-center">{config.description}</p>
 	{/if}
 
-	<!-- カスタム使用説明（設定で上書き可能） -->
 	{#if (config as any).customInstructions}
 		<div class="mb-4 rounded-lg bg-yellow-100 p-3 dark:bg-yellow-900">
 			<p class="text-sm text-yellow-800 dark:text-yellow-200">
-				<strong>📝 使い方:</strong>
+				<strong>{$t('playground.usageLabel')}</strong>
 				{(config as any).customInstructions}
 			</p>
 		</div>
@@ -129,8 +121,7 @@
 
 	<div class="grid grid-rows-[auto_auto] gap-4 md:grid-cols-2">
 		<div class="controls-panel">
-			<h3 class="mb-4 h3">プロパティ設定</h3>
-
+			<h3 class="mb-4 h3">{$t('playground.propSettings')}</h3>
 			{#each Object.entries(groupedProps()) as [groupName, props]}
 				<div class="prop-group mb-6">
 					<h4 class="group-title">{getGroupTitle(groupName)}</h4>
@@ -141,7 +132,7 @@
 					{#each props as propConfig}
 						<div class="control-group">
 							<label for="pg-{propConfig.key}"
-								>{propConfig.label}
+								>{propConfig.key}
 								{#if propConfig.help}
 									<FloatingPopover placement="top">
 										{#snippet trigger()}
@@ -150,8 +141,9 @@
 												size="20"
 											/>
 										{/snippet}
-
-										{propConfig.help}
+										<div style="white-space: pre-wrap;word-break: normal;	word-break: break-word;">
+											{propConfig.help}
+										</div>
 									</FloatingPopover>
 								{/if}</label
 							>
@@ -182,14 +174,11 @@
 									{/each}
 								</select>
 							{:else if propConfig.type === 'checkbox'}
-								<label class="checkbox-label">
-									<input
-										type="checkbox"
-										bind:checked={playgroundProps[propConfig.key]}
-										class="control-checkbox"
-									/>
-									<span>{propConfig.label}</span>
-								</label>
+								<input
+									type="checkbox"
+									bind:checked={playgroundProps[propConfig.key]}
+									class="control-checkbox"
+								/>
 							{/if}
 						</div>
 					{/each}
@@ -198,21 +187,21 @@
 		</div>
 
 		<div class="preview-panel">
-			<h3 class="mb-4 h3">プレビュー</h3>
+			<h3 class="mb-4 h3">{$t('playground.preview')}</h3>
 			<div class="preview-container">
 				{#if browser}
 					{@render preview(generateComponentProps())}
 				{/if}
 			</div>
 
-			<h4 class="mt-6 mb-2 h4">生成されたコード</h4>
+			<h4 class="mt-6 mb-2 h4">{$t('playground.generatedCode')}</h4>
 			<div class="code-container">
 				<pre><code>{config.generateCode(playgroundProps)}</code></pre>
 				<button
 					class="copy-btn"
 					onclick={() => navigator.clipboard.writeText(config.generateCode(playgroundProps))}
 				>
-					📋 コピー
+					📋 {$t('playground.copy')}
 				</button>
 			</div>
 		</div>

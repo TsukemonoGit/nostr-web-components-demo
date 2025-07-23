@@ -2,10 +2,11 @@
 	import InteractivePlayground from '$lib/components/InteractivePlayground.svelte';
 
 	import { resolveToNoteId } from '$lib/utils/utils';
+	import { t } from '@konemono/svelte5-i18n';
 
 	const nostrNoteConfig = {
-		title: 'nostr-note インタラクティブプレイグラウンド',
-		description: 'プロパティを変更して見た目を試してみてください',
+		title: $t('playground.title', { target: 'nostr-note' }),
+		description: $t('playground.description'),
 
 		defaultProps: {
 			id: 'nevent1qvzqqqqqqypzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qyxhwumn8ghj77tpvf6jumt9qyv8wumn8ghj7un9d3shjtnddakk7um5wgh8q6twdvqzq673ld76k3sn9nuflzqxgyz2ht9lkh0a3qun9vxv7frfhsv4pvsph7jzvj',
@@ -17,31 +18,31 @@
 			height: '',
 			display: 'card'
 		},
+
 		propConfigs: [
 			{
 				key: 'id',
-				label: 'Event ID',
-				type: 'text' as const, // ←ここを明示的に as const でリテラル型に
-				placeholder: 'nevent1...',
-				help: '表示するNostrイベントのID（note1~,nevent1~）（必須）'
+				type: 'text' as const,
+				placeholder: $t('props.id.placeholder'),
+				help: $t('props.id.help')
 			},
 			{
 				key: 'relays',
-				label: 'Relays (カンマ区切り)',
+
 				type: 'text' as const,
-				placeholder: 'wss://relay1.com,wss://relay2.com',
-				help: '取得に使うRelayのURL配列（省略可）'
+				placeholder: $t('props.relays.placeholder'),
+				help: $t('props.relays.help')
 			},
 			{
 				key: 'href',
-				label: 'カスタムURL',
+
 				type: 'text' as const,
-				placeholder: 'https://example.com',
-				help: 'イベントリンクのURL（省略時は自動生成）'
+				placeholder: $t('props.href.placeholder'),
+				help: $t('props.href.help')
 			},
 			{
 				key: 'target',
-				label: 'Target',
+
 				type: 'select' as const,
 				options: [
 					{ value: '_blank', label: '_blank' },
@@ -49,41 +50,41 @@
 					{ value: '_parent', label: '_parent' },
 					{ value: '_top', label: '_top' }
 				],
-				help: 'リンクのターゲット属性（例: "_blank"）'
+				help: $t('props.target.help')
 			},
 			{
 				key: 'noLink',
-				label: 'リンクを無効化 (noLink)',
+
 				type: 'checkbox' as const,
-				help: 'trueにするとリンク表示を無効化'
+				help: $t('props.noLink.help')
 			},
 			{
 				key: 'theme',
-				label: 'Theme',
+
 				type: 'select' as const,
 				options: [
 					{ value: 'auto', label: 'auto' },
 					{ value: 'light', label: 'light' },
 					{ value: 'dark', label: 'dark' }
 				],
-				help: '"auto"（デフォルト）/ "dark" / "light"'
+				help: $t('props.theme.help')
 			},
 			{
 				key: 'height',
-				label: 'Height',
+
 				type: 'text' as const,
-				placeholder: '400px',
-				help: '表示高さ（任意）'
+				placeholder: $t('props.height.placeholder'),
+				help: $t('props.height.help')
 			},
 			{
 				key: 'display',
-				label: 'Display',
+
 				type: 'select' as const,
 				options: [
 					{ value: 'card', label: 'card' },
 					{ value: 'compact', label: 'compact' }
 				],
-				help: '表示スタイル。"card"(デフォルト) / "compact"'
+				help: $t('props.display.help')
 			}
 		],
 		generateCode: (props: any) => {
