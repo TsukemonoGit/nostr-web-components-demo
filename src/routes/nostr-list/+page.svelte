@@ -86,7 +86,7 @@
 			}
 		],
 		generateCode: (props: any) => {
-			let attributes: string[] = [`naddr="${props.naddr}"`];
+			let attributes: string[] = [`filters="${props.filters}"`];
 
 			if (props.relays) {
 				const relaysArray = props.relays
