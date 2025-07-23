@@ -1,9 +1,8 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import InteractivePlayground from '$lib/components/InteractivePlayground.svelte';
-	import { theme } from '$lib/runes/runes.svelte';
+
 	import { resolveToNoteId } from '$lib/utils/utils';
-	import { t } from '@konemono/svelte5-i18n';
 
 	// プレイグラウンド用のプロパティ
 	let playgroundProps = $state({

@@ -3,13 +3,28 @@
 
 	// nostr-naddr専用の設定
 	const nostrNaddrConfig = {
-		title: 'インタラクティブプレイグラウンド',
-		description: 'プロパティを変更して見た目を試してみてください',
+		title: 'Nostr Naddr プレイグラウンド',
+		description: 'Nostrのnaddr形式のコンテンツプレビューを試せます',
 		componentTag: 'nostr-naddr',
+		customInstructions:
+			'📍 アドレス指定（naddr）または🔧 個別指定（user + kind + id ）のどちらか一方を設定してください',
+		groupTitles: {
+			address: '📍 アドレス指定 (オプション1)',
+			components: '🔧 個別指定 (オプション2)',
+			other: '⚙️ その他の設定'
+		},
+		groupDescriptions: {
+			address: 'naddr形式でアドレスを直接指定',
+			components: 'user、kind、idを個別に指定（user、kind必須）',
+			other: '表示やリンクの設定'
+		},
 		defaultProps: {
-			naddr:
-				'naddr1qvzqqqr4gupzpp9sc34tdxdvxh4jeg5xgu9ctcypmvsg0n00vwfjydkrjaqh0qh4qyxhwumn8ghj77tpvf6jumt9qys8wumn8ghj7un9d3shjtt2wqhxummnw3ezuamfwfjkgmn9wshx5uqpz3mhxue69uhhyetvv9ujuerpd46hxtnfduq3wamnwvaz7tmwdaehgu3wd968gctwd4hjumt9dcq3zamnwvaz7tmwveex2mrp0yhxzursqywhwumn8ghj7mn0wd68ytnrdakhq6tvv5kk2unjdaezumn9wsqq5mt0dehj6ar0dak8xhecf4f',
+			naddr: '',
+			user: 'mono@tsukemonogit.github.io',
+			id: 'monomoji',
+			kind: '30003',
 			relays: 'wss://nfrelay.app,wss://nos.lol',
+			itemsPerPage: 3,
 			href: '',
 			target: '_blank',
 			noLink: false,
@@ -20,21 +35,53 @@
 		propConfigs: [
 			{
 				key: 'naddr',
-				label: 'Naddr',
+				label: 'Naddr (オプション1)',
 				type: 'text' as const,
-				placeholder: 'naddr1...'
+				placeholder: 'naddr1...',
+				group: 'address'
+			},
+			{
+				key: 'user',
+				label: 'User (pubkey) - オプション2',
+				type: 'text' as const,
+				placeholder: 'npub1... または hex形式',
+				group: 'components'
+			},
+
+			{
+				key: 'kind',
+				label: 'Kind - オプション2',
+				type: 'text' as const,
+				placeholder: '30023',
+				group: 'components'
+			},
+			{
+				key: 'id',
+				label: 'ID (dtag/identifier) - オプション2',
+				type: 'text' as const,
+				placeholder: 'article-title-example',
+				group: 'components'
+			},
+			{
+				key: 'itemsPerPage',
+				label: 'itemsPerPage',
+				type: 'text' as const,
+				placeholder: '10',
+				group: 'other'
 			},
 			{
 				key: 'relays',
 				label: 'Relays (カンマ区切り)',
 				type: 'text' as const,
-				placeholder: 'wss://relay1.com,wss://relay2.com'
+				placeholder: 'wss://relay1.com,wss://relay2.com',
+				group: 'other'
 			},
 			{
 				key: 'href',
 				label: 'カスタムURL',
 				type: 'text' as const,
-				placeholder: 'https://example.com'
+				placeholder: 'https://example.com',
+				group: 'other'
 			},
 			{
 				key: 'target',
@@ -45,7 +92,8 @@
 					{ value: '_self', label: '_self' },
 					{ value: '_parent', label: '_parent' },
 					{ value: '_top', label: '_top' }
-				]
+				],
+				group: 'other'
 			},
 			{
 				key: 'theme',
@@ -55,7 +103,8 @@
 					{ value: 'auto', label: 'auto' },
 					{ value: 'light', label: 'light' },
 					{ value: 'dark', label: 'dark' }
-				]
+				],
+				group: 'other'
 			},
 			{
 				key: 'display',
@@ -64,23 +113,35 @@
 				options: [
 					{ value: 'card', label: 'card' },
 					{ value: 'compact', label: 'compact' }
-				]
+				],
+				group: 'other'
 			},
 			{
 				key: 'height',
 				label: 'Height',
 				type: 'text' as const,
-				placeholder: '400px'
+				placeholder: '400px',
+				group: 'other'
 			},
 			{
 				key: 'noLink',
 				label: 'リンクを無効化 (noLink)',
-				type: 'checkbox' as const
+				type: 'checkbox' as const,
+				group: 'other'
 			}
 		],
 		generateCode: (props: any) => {
-			let attributes: string[] = [`naddr="${props.naddr}"`];
+			let attributes: string[] = [];
 
+			// naddrまたはuser/id/kindのいずれかを設定
+			if (props.naddr) {
+				attributes.push(`naddr="${props.naddr}"`);
+			} else {
+				if (props.user) attributes.push(`user="${props.user}"`);
+				if (props.id) attributes.push(`id="${props.id}"`);
+				if (props.kind) attributes.push(`kind="${props.kind}"`);
+			}
+			if (props.itemsPerPage) attributes.push(`itemsPerPage="${props.itemsPerPage}"`);
 			if (props.relays) {
 				const relaysArray = props.relays
 					.split(',')
@@ -96,23 +157,58 @@
 			if (props.display !== 'card') attributes.push(`display="${props.display}"`);
 
 			return `<nostr-naddr\n  ${attributes.join('\n  ')}\n></nostr-naddr>`;
+		},
+		// プレビュー用の変換関数
+		transformPropsForPreview: (props: any, defaultProps: any) => {
+			const previewProps: any = {};
+
+			// naddrまたはdefaultのnaddrを使用
+			previewProps.naddr = props.naddr || defaultProps.naddr;
+
+			// user/id/kindが全て設定されている場合のみ適用
+			if (props.user && props.kind) {
+				previewProps.user = props.user;
+
+				previewProps.kind = props.kind;
+				previewProps.id = props.id || '';
+				previewProps.naddr = undefined; // naddrは無視
+			}
+
+			// relaysの処理
+			if (props.relays) {
+				previewProps.relays = props.relays.split(',').map((r: string) => r.trim());
+			} else {
+				previewProps.relays = defaultProps.relays.split(',').map((r: string) => r.trim());
+			}
+
+			// その他のプロパティ
+			previewProps.href = props.href || undefined;
+			previewProps.target = props.target || defaultProps.target;
+			previewProps.noLink = props.noLink || defaultProps.noLink;
+			previewProps.theme = props.theme || defaultProps.theme;
+			previewProps.height = props.height || undefined;
+			previewProps.display = props.display || defaultProps.display;
+			previewProps.itemsPerPage = props.itemsPerPage || defaultProps.itemsPerPage;
+			return previewProps;
 		}
 	};
 </script>
 
-<InteractivePlayground config={nostrNaddrConfig}
-	>{#snippet preview(props)}
+<InteractivePlayground config={nostrNaddrConfig}>
+	{#snippet preview(props)}
 		<nostr-naddr
-			naddr={props.naddr || nostrNaddrConfig.defaultProps.naddr}
-			relays={props.relays
-				? props.relays.split(',').map((r: string) => r.trim())
-				: nostrNaddrConfig.defaultProps.relays.split(',').map((r) => r.trim())}
-			href={props.href || undefined}
-			target={props.target || nostrNaddrConfig.defaultProps.target}
-			noLink={props.noLink || nostrNaddrConfig.defaultProps.noLink}
-			theme={props.theme || nostrNaddrConfig.defaultProps.theme}
-			height={props.height || undefined}
-			display={props.display || nostrNaddrConfig.defaultProps.display}
+			naddr={props.naddr}
+			user={props.user}
+			id={props.id}
+			kind={props.kind}
+			relays={props.relays}
+			href={props.href}
+			target={props.target}
+			noLink={props.noLink}
+			theme={props.theme}
+			height={props.height}
+			display={props.display}
+			itemsPerPage={props.itemsPerPage}
 		></nostr-naddr>
-	{/snippet}</InteractivePlayground
->
+	{/snippet}
+</InteractivePlayground>

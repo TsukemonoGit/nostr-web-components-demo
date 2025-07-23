@@ -1,3 +1,5 @@
+<!--InteractivePlaygound.svelte-->
+
 <script lang="ts">
 	import { browser } from '$app/environment';
 	import type { Snippet } from 'svelte';
@@ -9,6 +11,8 @@
 		defaultProps: T;
 		propConfigs: PropConfig[];
 		generateCode: (props: T) => string;
+		// 新機能: プレビュー用のpropsを変換する関数（オプション）
+		transformPropsForPreview?: (props: T, defaultProps: T) => Record<string, any>;
 	}
 
 	interface PropConfig {
@@ -17,6 +21,7 @@
 		type: 'text' | 'select' | 'checkbox' | 'textarea';
 		placeholder?: string;
 		options?: Array<{ value: any; label: string }>;
+		group?: string;
 	}
 
 	let {
@@ -29,14 +34,75 @@
 
 	let playgroundProps = $state({ ...config.defaultProps });
 
+	// プロパティをグループ別に整理
+	const groupedProps = $derived(() => {
+		const groups: Record<string, PropConfig[]> = {};
+
+		config.propConfigs.forEach((prop) => {
+			const group = prop.group || 'default';
+			if (!groups[group]) groups[group] = [];
+			groups[group].push(prop);
+		});
+
+		return groups;
+	});
+
+	// グループのタイトルを取得（設定で上書き可能）
+	function getGroupTitle(groupName: string): string {
+		// 設定にカスタムタイトルがあれば使用
+		const customTitles = (config as any).groupTitles;
+		if (customTitles && customTitles[groupName]) {
+			return customTitles[groupName];
+		}
+
+		// デフォルトのタイトル
+		switch (groupName) {
+			case 'address':
+				return '📍 アドレス指定 (オプション1)';
+			case 'components':
+				return '🔧 コンポーネント指定 (オプション2)';
+			case 'other':
+				return '⚙️ その他の設定';
+			default:
+				return '';
+		}
+	}
+
+	// グループの説明を取得（設定で上書き可能）
+	function getGroupDescription(groupName: string): string {
+		// 設定にカスタム説明があれば使用
+		const customDescriptions = (config as any).groupDescriptions;
+		if (customDescriptions && customDescriptions[groupName]) {
+			return customDescriptions[groupName];
+		}
+
+		// デフォルトの説明
+		switch (groupName) {
+			case 'address':
+				return 'naddr形式でアドレスを直接指定';
+			case 'components':
+				return 'user、id、kindを個別に指定（3つすべて必要）';
+			case 'other':
+				return '表示やリンクの設定';
+			default:
+				return '';
+		}
+	}
+
 	// 動的にコンポーネント属性を生成する関数
 	function generateComponentProps() {
 		const props: Record<string, any> = {};
 
+		// すべてのプロパティを含めるが、空文字列やundefinedは除外
 		for (const [key, value] of Object.entries(playgroundProps)) {
-			if (value !== undefined && value !== '' && value !== config.defaultProps[key]) {
+			if (value !== undefined && value !== null && value !== '') {
 				props[key] = value;
 			}
+		}
+
+		// カスタム変換関数があれば使用
+		if (config.transformPropsForPreview) {
+			return config.transformPropsForPreview(props, config.defaultProps);
 		}
 
 		return props;
@@ -49,49 +115,68 @@
 		<p class="mb-6 text-center">{config.description}</p>
 	{/if}
 
+	<!-- カスタム使用説明（設定で上書き可能） -->
+	{#if (config as any).customInstructions}
+		<div class="mb-4 rounded-lg bg-yellow-100 p-3 dark:bg-yellow-900">
+			<p class="text-sm text-yellow-800 dark:text-yellow-200">
+				<strong>📝 使い方:</strong>
+				{(config as any).customInstructions}
+			</p>
+		</div>
+	{/if}
+
 	<div class="grid grid-rows-[auto_auto] gap-4 md:grid-cols-2">
 		<div class="controls-panel">
 			<h3 class="mb-4 h3">プロパティ設定</h3>
 
-			{#each config.propConfigs as propConfig}
-				<div class="control-group">
-					<label for="pg-{propConfig.key}">{propConfig.label}</label>
-
-					{#if propConfig.type === 'text'}
-						<input
-							id="pg-{propConfig.key}"
-							bind:value={playgroundProps[propConfig.key]}
-							placeholder={propConfig.placeholder || ''}
-							class="control-input"
-						/>
-					{:else if propConfig.type === 'textarea'}
-						<textarea
-							id="pg-{propConfig.key}"
-							bind:value={playgroundProps[propConfig.key]}
-							placeholder={propConfig.placeholder || ''}
-							class="control-input"
-							rows="3"
-						></textarea>
-					{:else if propConfig.type === 'select'}
-						<select
-							id="pg-{propConfig.key}"
-							bind:value={playgroundProps[propConfig.key]}
-							class="control-select"
-						>
-							{#each propConfig.options || [] as option}
-								<option value={option.value}>{option.label}</option>
-							{/each}
-						</select>
-					{:else if propConfig.type === 'checkbox'}
-						<label class="checkbox-label">
-							<input
-								type="checkbox"
-								bind:checked={playgroundProps[propConfig.key]}
-								class="control-checkbox"
-							/>
-							<span>{propConfig.label}</span>
-						</label>
+			{#each Object.entries(groupedProps()) as [groupName, props]}
+				<div class="prop-group mb-6">
+					<h4 class="group-title">{getGroupTitle(groupName)}</h4>
+					{#if getGroupDescription(groupName)}
+						<p class="group-description">{getGroupDescription(groupName)}</p>
 					{/if}
+
+					{#each props as propConfig}
+						<div class="control-group">
+							<label for="pg-{propConfig.key}">{propConfig.label}</label>
+
+							{#if propConfig.type === 'text'}
+								<input
+									id="pg-{propConfig.key}"
+									bind:value={playgroundProps[propConfig.key]}
+									placeholder={propConfig.placeholder || ''}
+									class="control-input"
+								/>
+							{:else if propConfig.type === 'textarea'}
+								<textarea
+									id="pg-{propConfig.key}"
+									bind:value={playgroundProps[propConfig.key]}
+									placeholder={propConfig.placeholder || ''}
+									class="control-input"
+									rows="3"
+								></textarea>
+							{:else if propConfig.type === 'select'}
+								<select
+									id="pg-{propConfig.key}"
+									bind:value={playgroundProps[propConfig.key]}
+									class="control-select"
+								>
+									{#each propConfig.options || [] as option}
+										<option value={option.value}>{option.label}</option>
+									{/each}
+								</select>
+							{:else if propConfig.type === 'checkbox'}
+								<label class="checkbox-label">
+									<input
+										type="checkbox"
+										bind:checked={playgroundProps[propConfig.key]}
+										class="control-checkbox"
+									/>
+									<span>{propConfig.label}</span>
+								</label>
+							{/if}
+						</div>
+					{/each}
 				</div>
 			{/each}
 		</div>
@@ -227,5 +312,26 @@
 
 	.copy-btn:hover {
 		background: var(--color-primary-700);
+	}
+
+	.prop-group {
+		border: 1px solid var(--color-surface-300-700);
+		border-radius: 8px;
+		padding: 1rem;
+		background: var(--color-surface-50-950);
+	}
+
+	.group-title {
+		font-size: 1rem;
+		font-weight: 600;
+		color: var(--color-primary-600);
+		margin-bottom: 0.5rem;
+	}
+
+	.group-description {
+		font-size: 0.8rem;
+		color: var(--color-surface-700-300);
+		margin-bottom: 1rem;
+		font-style: italic;
 	}
 </style>
