@@ -2,6 +2,7 @@
 	import { browser } from '$app/environment';
 	import { theme } from '$lib/runes/runes.svelte';
 	import { t } from '@konemono/svelte5-i18n';
+	import { base } from '$app/paths';
 </script>
 
 <div class="container">
@@ -18,7 +19,7 @@
 				<div class="code-example">
 					<code>&lt;nostr-note id="nevent1..." theme="{theme.get()}" /&gt;</code>
 				</div>
-				<a href="/nostr-note" class="learn-more">{$t('learnMore')} →</a>
+				<a href={`${base}/nostr-note`} class="learn-more">{$t('learnMore')} →</a>
 			</div>
 
 			<div class="component-card">
@@ -27,7 +28,7 @@
 				<div class="code-example">
 					<code>&lt;nostr-profile user="npub1..." theme="{theme.get()}" /&gt;</code>
 				</div>
-				<a href="/nostr-profile" class="learn-more">{$t('learnMore')} →</a>
+				<a href={`${base}/nostr-profile`} class="learn-more">{$t('learnMore')} →</a>
 			</div>
 
 			<div class="component-card">
@@ -36,7 +37,7 @@
 				<div class="code-example">
 					<code>&lt;nostr-naddr naddr="naddr1..." theme={theme.get()} /&gt;</code>
 				</div>
-				<a href="/nostr-naddr" class="learn-more">{$t('learnMore')} →</a>
+				<a href={`${base}/nostr-naddr`} class="learn-more">{$t('learnMore')} →</a>
 			</div>
 
 			<div class="component-card">
@@ -45,7 +46,7 @@
 				<div class="code-example">
 					<code>&lt;nostr-list filters="[...]" limit="3" theme="{theme.get()}" /&gt;</code>
 				</div>
-				<a href="/nostr-list" class="learn-more">{$t('learnMore')} →</a>
+				<a href={`${base}/nostr-list`} class="learn-more">{$t('learnMore')} →</a>
 			</div>
 		</div>
 	</section>
@@ -107,12 +108,12 @@
 	<nav class="navigation">
 		<h2>{$t('navigation.title')}</h2>
 		<div class="nav-links">
-			<a href="/nostr-note" class="nav-link">nostr-note</a>
-			<a href="/nostr-profile" class="nav-link">nostr-profile</a>
-			<a href="/nostr-naddr" class="nav-link">nostr-naddr</a>
-			<a href="/nostr-list" class="nav-link">nostr-list</a>
-			<a href="/installation" class="nav-link">{$t('navigation.installation')}</a>
-			<a href="/api" class="nav-link">{$t('navigation.api')}</a>
+			<a href={`${base}/nostr-note`} class="nav-link">nostr-note</a>
+			<a href={`${base}/nostr-profile`} class="nav-link">nostr-profile</a>
+			<a href={`${base}/nostr-naddr`} class="nav-link">nostr-naddr</a>
+			<a href={`${base}/nostr-list`} class="nav-link">nostr-list</a>
+			<a href={`${base}/installation`} class="nav-link">{$t('navigation.installation')}</a>
+			<a href={`${base}/api`} class="nav-link">{$t('navigation.api')}</a>
 		</div>
 	</nav>
 </div>

@@ -4,7 +4,8 @@
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import SideMenu from '$lib/components/SideMenu.svelte';
 	import '../app.css';
-	import Footer from '$lib/components/Footer.svelte';
+	//import Footer from '$lib/components/Footer.svelte';
+	import { base } from '$app/paths';
 
 	let { children } = $props();
 	let isMenuOpen = $state(false);
@@ -29,7 +30,7 @@
 				</Sidebar>
 				<!-- タイトル -->
 				<h1 class="h5 sm:h3">
-					<a href="/" class="hover:underline"> Nostr Web Components </a>
+					<a href={`${base}/`} class="hover:underline"> Nostr Web Components </a>
 				</h1>
 			</div>
 
