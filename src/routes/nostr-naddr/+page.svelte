@@ -30,7 +30,8 @@
 			noLink: false,
 			theme: 'auto',
 			height: '',
-			display: 'card'
+			display: 'card',
+			sortOrder: 'normal'
 		},
 		propConfigs: [
 			{
@@ -67,6 +68,16 @@
 				label: 'itemsPerPage',
 				type: 'text' as const,
 				placeholder: '10',
+				group: 'other'
+			},
+			{
+				key: 'sortOrder',
+				label: 'SortOrder',
+				type: 'select' as const,
+				options: [
+					{ value: 'normal', label: 'normal' },
+					{ value: 'reverse', label: 'reverse' }
+				],
 				group: 'other'
 			},
 			{
@@ -142,6 +153,7 @@
 				if (props.kind) attributes.push(`kind="${props.kind}"`);
 			}
 			if (props.itemsPerPage) attributes.push(`itemsPerPage="${props.itemsPerPage}"`);
+			if (props.sortOrder) attributes.push(`sortOrder="${props.sortOrder}"`);
 			if (props.relays) {
 				const relaysArray = props.relays
 					.split(',')
@@ -189,6 +201,7 @@
 			previewProps.height = props.height || undefined;
 			previewProps.display = props.display || defaultProps.display;
 			previewProps.itemsPerPage = props.itemsPerPage || defaultProps.itemsPerPage;
+			previewProps.sortOrder = props.sortOrder || defaultProps.sortOrder;
 			return previewProps;
 		}
 	};
@@ -209,6 +222,7 @@
 			height={props.height}
 			display={props.display}
 			itemsPerPage={props.itemsPerPage}
+			sortOrder={props.sortOrder}
 		></nostr-naddr>
 	{/snippet}
 </InteractivePlayground>
