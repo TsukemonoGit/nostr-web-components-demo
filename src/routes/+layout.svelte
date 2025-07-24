@@ -6,7 +6,6 @@
 	import '../app.css';
 	//import Footer from '$lib/components/Footer.svelte';
 	import { base } from '$app/paths';
-	import { t } from '@konemono/svelte5-i18n';
 
 	let { children } = $props();
 	let isMenuOpen = $state(false);
@@ -17,12 +16,18 @@
 	<title>Nostr Web Components @konemono</title
 	><!--ここを{$ogTitle}にするとMenubarの項目をホバーするだけでタイトル変わる謎になる-->
 
-	<meta property="og:title" content={$t('title')} />
+	<meta property="og:title" content={'Nostr Web Components @konemono'} />
 	<!--   <meta property="og:image" content={``} /> -->
 
-	<meta name="description" content={$t('description')} />
+	<meta
+		name="description"
+		content={'A component library for easily integrating Nostr protocol into your web applications'}
+	/>
 
-	<meta property="og:description" content={$t('description')} />
+	<meta
+		property="og:description"
+		content={'A component library for easily integrating Nostr protocol into your web applications'}
+	/>
 </svelte:head>
 
 <div class="grid h-screen grid-rows-[auto_1fr_auto]">
