@@ -1,163 +1,164 @@
 {
-	"title": "Nostr Web Components @konemono",
-	"description": "Nostr プロトコルを簡単にWebアプリケーションに統合するためのコンポーネントライブラリ",
-	"components": {
-		"note": {
-			"description": "Nostr ノートを表示するコンポーネント。"
-		},
-		"profile": {
-			"description": "ユーザープロフィールを表示。フルプロフィールまたは名前のみの表示モードを選択可能。"
-		},
-		"list": {
-			"description": "フィルター条件に基づいてNostrイベントのリストを表示。カスタマイズ可能な制限設定。"
-		},
-		"naddr": {
-			"description": "Nostr アドレス（naddr）からコンテンツを表示。"
-		}
-	},
-	"learnMore": "詳細を見る",
-	"demo": {
-		"title": "デモ",
-		"description": "以下は実際のコンポーネントの動作例です。各コンポーネントがどのように機能するかを確認できます。",
-		"note": {
-			"title": "ノート表示"
-		},
-		"profile": {
-			"title": "プロフィール表示"
-		},
-		"profileName": {
-			"title": "プロフィール名のみ"
-		},
-		"list": {
-			"title": "イベントリスト"
-		},
-		"naddr": {
-			"title": "Naddr イベントの表示"
-		}
-	},
-	"installation": {
-		"title": "インストール方法",
-		"description": "nostr-web-components を Web ページに組み込むための手順を紹介します。",
-		"cdn": {
-			"title": "CDNから読み込む",
-			"description": "もっとも簡単な方法は、CDN経由でスクリプトを読み込むことです。"
-		},
-		"usage": {
-			"title": "基本的な使い方",
-			"description": "<nostr-container> を使うことで、すべての子コンポーネントにリレー情報を共有できます。"
-		},
-		"standalone": {
-			"title": "単体で使う",
-			"description": "<nostr-container> を使わず、各コンポーネント単独で利用することも可能です。"
-		},
-		"override": {
-			"title": "リレーを個別に指定する",
-			"description": "各コンポーネントに relays 属性を指定することで、親の設定を上書きできます。"
-		}
-	},
-	"navigation": {
-		"title": "ドキュメント",
-		"installation": "インストール方法",
-		"api": "API リファレンス"
-	},
-	"group": {
-		"address": {
-			"title": "📍 アドレス指定 (オプション1)",
-			"description": "naddr形式でアドレスを直接指定"
-		},
-		"components": {
-			"title": "🔧 コンポーネント指定 (オプション2)",
-			"description": "user、id、kindを個別に指定（3つすべて必要）"
-		},
-		"other": {
-			"title": "⚙️ その他の設定",
-			"description": "表示やリンクの設定"
-		}
-	},
-	"playground": {
-		"refreshPreview": "更新",
-		"title": "{target} インタラクティブプレイグラウンド",
-		"description": "プロパティを変更して見た目を試してみてください",
-		"usageLabel": "📝 使い方:",
-		"propSettings": "プロパティ設定",
-		"preview": "プレビュー",
-		"generatedCode": "生成されたコード",
-		"copy": "コピー",
-		"naddr": {
-			"instructions": "📍 アドレス指定（naddr）または🔧 個別指定（user + kind + identifier ）のどちらか一方を設定してください",
-			"groupTitles": {
-				"address": "📍 アドレス指定 (オプション1)",
-				"components": "🔧 個別指定 (オプション2)",
-				"other": "⚙️ その他の設定"
-			},
-			"groupDescriptions": {
-				"address": "naddr形式でアドレスを直接指定",
-				"components": "user、kind、identifierを個別に指定（user、kind必須）",
-				"other": "表示やリンクの設定"
-			}
-		}
-	},
-	"props": {
-		"id": {
-			"placeholder": "nevent1...",
-			"help": "表示するNostrイベントのID（必須）\n例: note1～、nevent1～"
-		},
-		"user": {
-			"type": "text",
-			"placeholder": "npub1...",
-			"help": "表示するユーザーのIDまたはnip05アドレス（必須）\n例：note1～、nevent1～、またはxx@xx.xx"
-		},
-		"naddr": {
-			"placeholder": "naddr1...",
-			"help": "表示するNostrアドレス（naddr形式）を指定します\n例: naddr1..."
-		},
-		"kind": {
-			"placeholder": "30001",
-			"help": "表示するイベントのkind（必須）\n例: 30001, 30003など"
-		},
-		"identifier": {
-			"placeholder": "mynote",
-			"help": "イベントのidentifierを指定します（任意）"
-		},
-		"filters": {
-			"placeholder": "[{\"authors\":[\"84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5\"]}]",
-			"help": "NostrフィルターのJSON文字列。\n例: [{\"authors\": [\"<pubkey>\"]}, {\"kinds\": [1]}]"
-		},
-		"limit": {
-			"placeholder": "10",
-			"help": "取得するイベントの最大件数（任意）"
-		},
-		"relays": {
-			"placeholder": "wss://relay1.com,wss://relay2.com",
-			"help": "取得に使用するRelayのURLリスト（省略可）"
-		},
-		"href": {
-			"placeholder": "https://example.com",
-			"help": "イベントリンクのURL。\n指定しない場合は自動生成されます"
-		},
-		"target": {
-			"help": "リンクのtarget属性を指定します\n例: \"_blank\""
-		},
-		"noLink": {
-			"label": "リンクを無効化 (noLink)",
-			"help": "trueを指定するとリンク表示を無効化します"
-		},
-		"theme": {
-			"help": "表示テーマを指定します：\n- auto（デフォルト）：システム設定に従う\n- dark：ダークモードで表示\n- light：ライトモードで表示"
-		},
-		"height": {
-			"placeholder": "400px",
-			"help": "表示領域の高さ（任意）"
-		},
-		"display": {
-			"help": "表示スタイルを選択します：\n- card（デフォルト）：改行を含み見やすい表示\n- compact：改行なしでコンパクトに表示"
-		},
-		"sortOrder": {
-			"help": "イベントの並び順を指定します：\n- normal（デフォルト）：通常順\n- reverse：逆順"
-		},
-		"itemsPerPage": {
-			"placeholder": "3",
-			"help": "1ページに表示するアイテム数（任意）"
-		}
-	}
+  "title": "Nostr Web Components @konemono",
+  "description": "Nostr プロトコルを簡単にWebアプリケーションに統合するためのコンポーネントライブラリ",
+  "components": {
+    "note": {
+      "description": "Nostr ノートを表示するコンポーネント。"
+    },
+    "profile": {
+      "description": "ユーザープロフィールを表示。フルプロフィールまたは名前のみの表示モードを選択可能。"
+    },
+    "list": {
+      "description": "フィルター条件に基づいてNostrイベントのリストを表示。カスタマイズ可能な制限設定。"
+    },
+    "naddr": {
+      "description": "Nostr アドレス（naddr）からコンテンツを表示。"
+    }
+  },
+  "learnMore": "詳細を見る",
+  "demo": {
+    "title": "デモ",
+    "description": "以下は実際のコンポーネントの動作例です。各コンポーネントがどのように機能するかを確認できます。",
+    "note": {
+      "title": "ノート表示"
+    },
+    "profile": {
+      "title": "プロフィール表示"
+    },
+    "profileName": {
+      "title": "プロフィール名のみ"
+    },
+    "list": {
+      "title": "イベントリスト"
+    },
+    "naddr": {
+      "title": "Naddr イベントの表示"
+    }
+  },
+  "installation": {
+    "title": "インストール方法",
+    "description": "nostr-web-components を Web ページに組み込むための手順を紹介します。",
+    "cdn": {
+      "title": "CDNから読み込む",
+      "description": "もっとも簡単な方法は、CDN経由でスクリプトを読み込むことです。"
+    },
+    "usage": {
+      "title": "基本的な使い方",
+      "description": "<nostr-container> を使うことで、すべての子コンポーネントにリレー情報を共有できます。"
+    },
+    "standalone": {
+      "title": "単体で使う",
+      "description": "<nostr-container> を使わず、各コンポーネント単独で利用することも可能です。"
+    },
+    "override": {
+      "title": "リレーを個別に指定する",
+      "description": "各コンポーネントに relays 属性を指定することで、親の設定を上書きできます。"
+    }
+  },
+  "navigation": {
+    "title": "ドキュメント",
+    "installation": "インストール方法",
+    "api": "API リファレンス"
+  },
+  "group": {
+    "address": {
+      "title": "📍 アドレス指定 (オプション1)",
+      "description": "naddr形式でアドレスを直接指定"
+    },
+    "components": {
+      "title": "🔧 コンポーネント指定 (オプション2)",
+      "description": "user、id、kindを個別に指定（3つすべて必要）"
+    },
+    "other": {
+      "title": "⚙️ その他の設定",
+      "description": "表示やリンクの設定"
+    }
+  },
+  "playground": {
+    "refreshPreview": "更新",
+    "title": "{target} インタラクティブプレイグラウンド",
+    "description": "プロパティを変更して見た目を試してみてください",
+    "usageLabel": "📝 使い方:",
+    "propSettings": "プロパティ設定",
+    "preview": "プレビュー",
+    "generatedCode": "生成されたコード",
+    "copy": "コピー",
+    "naddr": {
+      "instructions": "📍 アドレス指定（naddr）または🔧 個別指定（user + kind + identifier ）のどちらか一方を設定してください",
+      "groupTitles": {
+        "address": "📍 アドレス指定 (オプション1)",
+        "components": "🔧 個別指定 (オプション2)",
+        "other": "⚙️ その他の設定"
+      },
+      "groupDescriptions": {
+        "address": "naddr形式でアドレスを直接指定",
+        "components": "user、kind、identifierを個別に指定（user、kind必須）",
+        "other": "表示やリンクの設定"
+      }
+    }
+  },
+  "props": {
+    "id": {
+      "placeholder": "nevent1...",
+      "help": "表示するNostrイベントのID（必須）\n例: note1～、nevent1～"
+    },
+    "user": {
+      "type": "text",
+      "placeholder": "npub1...",
+      "help": "表示するユーザーのIDまたはnip05アドレス（必須）\n例：note1～、nevent1～、またはxx@xx.xx"
+    },
+    "naddr": {
+      "placeholder": "naddr1...",
+      "help": "表示するNostrアドレス（naddr形式）を指定します\n例: naddr1..."
+    },
+    "kind": {
+      "placeholder": "30001",
+      "help": "表示するイベントのkind（必須）\n例: 30001, 30003など"
+    },
+    "identifier": {
+      "placeholder": "mynote",
+      "help": "イベントのidentifierを指定します（任意）"
+    },
+    "filters": {
+      "placeholder": "[{\"authors\":[\"84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5\"]}]",
+      "help": "NostrフィルターのJSON文字列。\n例: [{\"authors\": [\"<pubkey>\"]}, {\"kinds\": [1]}]"
+    },
+    "limit": {
+      "placeholder": "10",
+      "help": "取得するイベントの最大件数（任意）"
+    },
+    "relays": {
+      "placeholder": "wss://relay1.com,wss://relay2.com",
+      "help": "取得に使用するRelayのURLリスト（省略可）"
+    },
+    "href": {
+      "placeholder": "https://example.com",
+      "help": "イベントリンクのURL。\n指定しない場合は自動生成されます"
+    },
+    "target": {
+      "help": "リンクのtarget属性を指定します\n例: \"_blank\""
+    },
+    "noLink": {
+      "label": "リンクを無効化 (noLink)",
+      "help": "trueを指定するとリンク表示を無効化します"
+    },
+    "theme": {
+      "help": "表示テーマを指定します：\n- auto（デフォルト）：システム設定に従う\n- dark：ダークモードで表示\n- light：ライトモードで表示\n- {site}：このサイトのTheme設定と連動します",
+      "site": "サイト設定"
+    },
+    "height": {
+      "placeholder": "400px",
+      "help": "表示領域の高さ（任意）"
+    },
+    "display": {
+      "help": "表示スタイルを選択します：\n- card（デフォルト）：改行を含み見やすい表示\n- compact：改行なしでコンパクトに表示"
+    },
+    "sortOrder": {
+      "help": "イベントの並び順を指定します：\n- normal（デフォルト）：通常順\n- reverse：逆順"
+    },
+    "itemsPerPage": {
+      "placeholder": "3",
+      "help": "1ページに表示するアイテム数（任意）"
+    }
+  }
 }

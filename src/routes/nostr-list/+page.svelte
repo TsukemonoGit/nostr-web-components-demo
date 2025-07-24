@@ -1,5 +1,6 @@
 <script lang="ts">
 	import InteractivePlayground from '$lib/components/InteractivePlayground.svelte';
+	import { theme } from '$lib/runes/runes.svelte';
 	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-list専用の設定
@@ -68,9 +69,10 @@
 				options: [
 					{ value: 'auto', label: 'auto' },
 					{ value: 'light', label: 'light' },
-					{ value: 'dark', label: 'dark' }
+					{ value: 'dark', label: 'dark' },
+					{ value: 'site', label: $t('props.theme.site') }
 				],
-				help: $t('props.theme.help')
+				help: $t('props.theme.help', { site: $t('props.theme.site') })
 			},
 			{
 				key: 'height',
@@ -102,7 +104,11 @@
 			if (props.href) attributes.push(`href="${props.href}"`);
 			if (props.target !== '_blank') attributes.push(`target="${props.target}"`);
 			if (props.noLink) attributes.push(`noLink={true}`);
-			if (props.theme !== 'auto') attributes.push(`theme="${props.theme}"`);
+			if (props.theme === 'site') {
+				attributes.push(`theme=${theme.get()}`);
+			} else if (props.theme !== 'auto') {
+				attributes.push(`theme="${props.theme}"`);
+			}
 			if (props.display !== 'list') attributes.push(`display="${props.display}"`);
 			if (props.limit && props.limit !== '0') attributes.push(`limit={${props.limit}}`);
 			if (props.display !== 'card') attributes.push(`display="${props.display}"`);
@@ -123,7 +129,9 @@
 			href={props.href || undefined}
 			target={props.target || nostrListConfig.defaultProps.target}
 			noLink={props.noLink || nostrListConfig.defaultProps.noLink}
-			theme={props.theme || nostrListConfig.defaultProps.theme}
+			theme={props.theme === 'site'
+				? theme.get()
+				: props.theme || nostrListConfig.defaultProps.theme}
 			height={props.height || undefined}
 			display={props.display || nostrListConfig.defaultProps.display}
 		></nostr-list>

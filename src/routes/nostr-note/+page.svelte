@@ -1,5 +1,6 @@
 <script lang="ts">
 	import InteractivePlayground from '$lib/components/InteractivePlayground.svelte';
+	import { theme } from '$lib/runes/runes.svelte';
 
 	import { resolveToNoteId } from '$lib/utils/utils';
 	import { t } from '@konemono/svelte5-i18n';
@@ -65,9 +66,10 @@
 				options: [
 					{ value: 'auto', label: 'auto' },
 					{ value: 'light', label: 'light' },
-					{ value: 'dark', label: 'dark' }
+					{ value: 'dark', label: 'dark' },
+					{ value: 'site', label: $t('props.theme.site') }
 				],
-				help: $t('props.theme.help')
+				help: $t('props.theme.help', { site: $t('props.theme.site') })
 			},
 			{
 				key: 'height',
@@ -100,7 +102,11 @@
 			if (props.href) attributes.push(`href="${props.href}"`);
 			if (props.target !== '_blank') attributes.push(`target="${props.target}"`);
 			if (props.noLink) attributes.push(`noLink={true}`);
-			if (props.theme !== 'auto') attributes.push(`theme="${props.theme}"`);
+			if (props.theme === 'site') {
+				attributes.push(`theme=${theme.get()}`);
+			} else if (props.theme !== 'auto') {
+				attributes.push(`theme="${props.theme}"`);
+			}
 			if (props.height) attributes.push(`height="${props.height}"`);
 			if (props.display !== 'card') attributes.push(`display="${props.display}"`);
 
@@ -120,7 +126,9 @@
 				href={props.href || undefined}
 				target={props.target || nostrNoteConfig.defaultProps.target}
 				noLink={props.noLink || nostrNoteConfig.defaultProps.noLink}
-				theme={props.theme || nostrNoteConfig.defaultProps.theme}
+				theme={props.theme === 'site'
+					? theme.get()
+					: props.theme || nostrNoteConfig.defaultProps.theme}
 				height={props.height || undefined}
 				display={props.display || nostrNoteConfig.defaultProps.display}
 			></nostr-note>

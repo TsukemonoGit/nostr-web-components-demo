@@ -1,5 +1,6 @@
 <script lang="ts">
 	import InteractivePlayground from '$lib/components/InteractivePlayground.svelte';
+	import { theme } from '$lib/runes/runes.svelte';
 	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-naddr専用の設定
@@ -128,10 +129,11 @@
 				options: [
 					{ value: 'auto', label: 'auto' },
 					{ value: 'light', label: 'light' },
-					{ value: 'dark', label: 'dark' }
+					{ value: 'dark', label: 'dark' },
+					{ value: 'site', label: $t('props.theme.site') }
 				],
 				group: 'other',
-				help: $t('props.theme.help')
+				help: $t('props.theme.help', { site: $t('props.theme.site') })
 			},
 			{
 				key: 'display',
@@ -175,7 +177,11 @@
 			if (props.href) attributes.push(`href="${props.href}"`);
 			if (props.target !== '_blank') attributes.push(`target="${props.target}"`);
 			if (props.noLink) attributes.push(`noLink={true}`);
-			if (props.theme !== 'auto') attributes.push(`theme="${props.theme}"`);
+			if (props.theme === 'site') {
+				attributes.push(`theme=${theme.get()}`);
+			} else if (props.theme !== 'auto') {
+				attributes.push(`theme="${props.theme}"`);
+			}
 			if (props.height) attributes.push(`height="${props.height}"`);
 			if (props.display !== 'card') attributes.push(`display="${props.display}"`);
 
@@ -229,7 +235,7 @@
 			href={props.href}
 			target={props.target}
 			noLink={props.noLink}
-			theme={props.theme}
+			theme={props.theme === 'site' ? theme.get() : props.theme}
 			height={props.height}
 			display={props.display}
 			itemsPerPage={props.itemsPerPage}

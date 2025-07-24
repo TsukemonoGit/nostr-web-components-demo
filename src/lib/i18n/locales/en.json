@@ -1,163 +1,164 @@
 {
-	"title": "@konemono Nostr Web Components",
-	"description": "A component library for easily integrating Nostr protocol into your web applications",
-	"components": {
-		"note": {
-			"description": "Display Nostr notes."
-		},
-		"profile": {
-			"description": "Display user profiles with options for full profile or name-only display modes."
-		},
-		"list": {
-			"description": "Display lists of Nostr events based on filter criteria with customizable limit settings."
-		},
-		"naddr": {
-			"description": "Display content from Nostr addresses (naddr)."
-		}
-	},
-	"learnMore": "Learn More",
-	"demo": {
-		"title": "Demo",
-		"description": "Below are live examples of the components in action. See how each component functions in real-time.",
-		"note": {
-			"title": "Note Display"
-		},
-		"profile": {
-			"title": "Profile Display"
-		},
-		"profileName": {
-			"title": "Profile Name Only"
-		},
-		"list": {
-			"title": "Event List"
-		},
-		"naddr": {
-			"title": "Naddr Display"
-		}
-	},
-	"installation": {
-		"title": "Installation",
-		"description": "Instructions on how to integrate nostr-web-components into your web page.",
-		"cdn": {
-			"title": "Load from CDN",
-			"description": "The easiest way is to load the script via CDN."
-		},
-		"usage": {
-			"title": "Basic Usage",
-			"description": "By using <nostr-container>, relay information can be shared with all child components."
-		},
-		"standalone": {
-			"title": "Use Individually",
-			"description": "You can also use each component independently without <nostr-container>."
-		},
-		"override": {
-			"title": "Override Relays",
-			"description": "Specify the relays attribute for each component to override the parent setting."
-		}
-	},
-	"navigation": {
-		"title": "Documentation",
-		"installation": "Installation Guide",
-		"api": "API Reference"
-	},
-	"group": {
-		"address": {
-			"title": "📍 Address (Option 1)",
-			"description": "Specify the address directly in naddr format"
-		},
-		"components": {
-			"title": "🔧 Components (Option 2)",
-			"description": "Specify user, id, and kind separately (all three required)"
-		},
-		"other": {
-			"title": "⚙️ Other Settings",
-			"description": "Settings for display and links"
-		}
-	},
-	"playground": {
-		"refreshPreview": "Refresh",
-		"title": "{target} Interactive Playground",
-		"description": "Change the properties to preview the appearance",
-		"usageLabel": "📝 Usage:",
-		"propSettings": "Property Settings",
-		"preview": "Preview",
-		"generatedCode": "Generated Code",
-		"copy": "Copy",
-		"naddr": {
-			"instructions": "📍 Specify either an address (naddr) or 🔧 individual components (user + kind + identifier)",
-			"groupTitles": {
-				"address": "📍 Address (Option 1)",
-				"components": "🔧 Components (Option 2)",
-				"other": "⚙️ Other Settings"
-			},
-			"groupDescriptions": {
-				"address": "Directly specify the address in naddr format",
-				"components": "Individually specify user, kind, and identifier (user and kind are required)",
-				"other": "Display and link-related settings"
-			}
-		}
-	},
-	"props": {
-		"id": {
-			"placeholder": "nevent1...",
-			"help": "The ID of the Nostr event to display (required)\nExample: note1..., nevent1..."
-		},
-		"user": {
-			"type": "text",
-			"placeholder": "npub1...",
-			"help": "The user's ID or nip05 address to display (required)\nExample: note1..., nevent1..., or xx@xx.xx"
-		},
-		"naddr": {
-			"placeholder": "naddr1...",
-			"help": "Specify the Nostr address in naddr format to display\nExample: naddr1..."
-		},
-		"kind": {
-			"placeholder": "30001",
-			"help": "The kind of the event to display (required)\nExample: 30001, 30003, etc."
-		},
-		"identifier": {
-			"placeholder": "mynote",
-			"help": "Specify the event's identifier (optional)"
-		},
-		"filters": {
-			"placeholder": "[{\"authors\":[\"84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5\"]}]",
-			"help": "JSON string of Nostr filters.\nExample: [{\"authors\": [\"<pubkey>\"]}, {\"kinds\": [1]}]"
-		},
-		"limit": {
-			"placeholder": "10",
-			"help": "Maximum number of events to fetch (optional)"
-		},
-		"relays": {
-			"placeholder": "wss://relay1.com,wss://relay2.com",
-			"help": "List of relay URLs used for fetching (optional)"
-		},
-		"href": {
-			"placeholder": "https://example.com",
-			"help": "The URL of the event link.\nIf omitted, it will be generated automatically"
-		},
-		"target": {
-			"help": "Specifies the target attribute of the link\nExample: \"_blank\""
-		},
-		"noLink": {
-			"label": "Disable Link (noLink)",
-			"help": "If true, disables link rendering"
-		},
-		"theme": {
-			"help": "Specifies the display theme:\n- auto (default): Follows system settings\n- dark: Display in dark mode\n- light: Display in light mode"
-		},
-		"height": {
-			"placeholder": "400px",
-			"help": "Display area height (optional)"
-		},
-		"display": {
-			"help": "Select display style:\n- card (default): With line breaks for readability\n- compact: Single-line compact style"
-		},
-		"sortOrder": {
-			"help": "Select the order of events:\n- normal (default): Standard order\n- reverse: Reverse order"
-		},
-		"itemsPerPage": {
-			"placeholder": "3",
-			"help": "Number of items to display per page (optional)"
-		}
-	}
+  "title": "@konemono Nostr Web Components",
+  "description": "A component library for easily integrating Nostr protocol into your web applications",
+  "components": {
+    "note": {
+      "description": "Display Nostr notes."
+    },
+    "profile": {
+      "description": "Display user profiles with options for full profile or name-only display modes."
+    },
+    "list": {
+      "description": "Display lists of Nostr events based on filter criteria with customizable limit settings."
+    },
+    "naddr": {
+      "description": "Display content from Nostr addresses (naddr)."
+    }
+  },
+  "learnMore": "Learn More",
+  "demo": {
+    "title": "Demo",
+    "description": "Below are live examples of the components in action. See how each component functions in real-time.",
+    "note": {
+      "title": "Note Display"
+    },
+    "profile": {
+      "title": "Profile Display"
+    },
+    "profileName": {
+      "title": "Profile Name Only"
+    },
+    "list": {
+      "title": "Event List"
+    },
+    "naddr": {
+      "title": "Naddr Display"
+    }
+  },
+  "installation": {
+    "title": "Installation",
+    "description": "Instructions on how to integrate nostr-web-components into your web page.",
+    "cdn": {
+      "title": "Load from CDN",
+      "description": "The easiest way is to load the script via CDN."
+    },
+    "usage": {
+      "title": "Basic Usage",
+      "description": "By using <nostr-container>, relay information can be shared with all child components."
+    },
+    "standalone": {
+      "title": "Use Individually",
+      "description": "You can also use each component independently without <nostr-container>."
+    },
+    "override": {
+      "title": "Override Relays",
+      "description": "Specify the relays attribute for each component to override the parent setting."
+    }
+  },
+  "navigation": {
+    "title": "Documentation",
+    "installation": "Installation Guide",
+    "api": "API Reference"
+  },
+  "group": {
+    "address": {
+      "title": "📍 Address (Option 1)",
+      "description": "Specify the address directly in naddr format"
+    },
+    "components": {
+      "title": "🔧 Components (Option 2)",
+      "description": "Specify user, id, and kind separately (all three required)"
+    },
+    "other": {
+      "title": "⚙️ Other Settings",
+      "description": "Settings for display and links"
+    }
+  },
+  "playground": {
+    "refreshPreview": "Refresh",
+    "title": "{target} Interactive Playground",
+    "description": "Change the properties to preview the appearance",
+    "usageLabel": "📝 Usage:",
+    "propSettings": "Property Settings",
+    "preview": "Preview",
+    "generatedCode": "Generated Code",
+    "copy": "Copy",
+    "naddr": {
+      "instructions": "📍 Specify either an address (naddr) or 🔧 individual components (user + kind + identifier)",
+      "groupTitles": {
+        "address": "📍 Address (Option 1)",
+        "components": "🔧 Components (Option 2)",
+        "other": "⚙️ Other Settings"
+      },
+      "groupDescriptions": {
+        "address": "Directly specify the address in naddr format",
+        "components": "Individually specify user, kind, and identifier (user and kind are required)",
+        "other": "Display and link-related settings"
+      }
+    }
+  },
+  "props": {
+    "id": {
+      "placeholder": "nevent1...",
+      "help": "The ID of the Nostr event to display (required)\nExample: note1..., nevent1..."
+    },
+    "user": {
+      "type": "text",
+      "placeholder": "npub1...",
+      "help": "The user's ID or nip05 address to display (required)\nExample: note1..., nevent1..., or xx@xx.xx"
+    },
+    "naddr": {
+      "placeholder": "naddr1...",
+      "help": "Specify the Nostr address in naddr format to display\nExample: naddr1..."
+    },
+    "kind": {
+      "placeholder": "30001",
+      "help": "The kind of the event to display (required)\nExample: 30001, 30003, etc."
+    },
+    "identifier": {
+      "placeholder": "mynote",
+      "help": "Specify the event's identifier (optional)"
+    },
+    "filters": {
+      "placeholder": "[{\"authors\":[\"84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5\"]}]",
+      "help": "JSON string of Nostr filters.\nExample: [{\"authors\": [\"<pubkey>\"]}, {\"kinds\": [1]}]"
+    },
+    "limit": {
+      "placeholder": "10",
+      "help": "Maximum number of events to fetch (optional)"
+    },
+    "relays": {
+      "placeholder": "wss://relay1.com,wss://relay2.com",
+      "help": "List of relay URLs used for fetching (optional)"
+    },
+    "href": {
+      "placeholder": "https://example.com",
+      "help": "The URL of the event link.\nIf omitted, it will be generated automatically"
+    },
+    "target": {
+      "help": "Specifies the target attribute of the link\nExample: \"_blank\""
+    },
+    "noLink": {
+      "label": "Disable Link (noLink)",
+      "help": "If true, disables link rendering"
+    },
+    "theme": {
+      "help": "Specifies the display theme:\n- auto (default): Follows system settings\n- dark: Display in dark mode\n- light: Display in light mode",
+      "site": "Site theme"
+    },
+    "height": {
+      "placeholder": "400px",
+      "help": "Display area height (optional)"
+    },
+    "display": {
+      "help": "Select display style:\n- card (default): With line breaks for readability\n- compact: Single-line compact style"
+    },
+    "sortOrder": {
+      "help": "Select the order of events:\n- normal (default): Standard order\n- reverse: Reverse order"
+    },
+    "itemsPerPage": {
+      "placeholder": "3",
+      "help": "Number of items to display per page (optional)"
+    }
+  }
 }
