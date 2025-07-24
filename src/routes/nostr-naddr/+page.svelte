@@ -5,7 +5,7 @@
 
 	// nostr-naddr専用の設定
 	const nostrNaddrConfig = {
-		title: $t('playground.title', { target: 'nostr-profile' }),
+		title: $t('playground.title', { target: 'nostr-naddr' }),
 		description: $t('playground.description'),
 
 		customInstructions: $t('playground.naddr.instructions'),
