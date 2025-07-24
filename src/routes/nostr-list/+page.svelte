@@ -4,7 +4,7 @@
 	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-list専用の設定
-	let nostrListConfig = $state({
+	let nostrListConfig = $derived({
 		title: $t('playground.title', { target: 'nostr-list' }),
 		description: $t('playground.description'),
 

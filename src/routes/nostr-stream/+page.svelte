@@ -4,7 +4,7 @@
 	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-stream専用の設定
-	let nostrListConfig = $state({
+	let nostrListConfig = $derived({
 		title: $t('playground.title', { target: 'nostr-stream' }),
 		description: $t('playground.description'),
 		customInstructions: $t('playground.stream.instructions'),

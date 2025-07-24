@@ -4,7 +4,7 @@
 	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-naddr専用の設定
-	let nostrNaddrConfig = $state({
+	let nostrNaddrConfig = $derived({
 		title: $t('playground.title', { target: 'nostr-naddr' }),
 		description: $t('playground.description'),
 

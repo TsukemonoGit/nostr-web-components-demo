@@ -4,7 +4,7 @@
 	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-profile専用の設定（例）
-	let nostrProfileConfig = $state({
+	let nostrProfileConfig = $derived({
 		title: $t('playground.title', { target: 'nostr-profile' }),
 		description: $t('playground.description'),
 

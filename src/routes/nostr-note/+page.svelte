@@ -5,7 +5,7 @@
 	import { resolveToNoteId } from '$lib/utils/utils';
 	import { t } from '@konemono/svelte5-i18n';
 
-	let nostrNoteConfig = $state({
+	let nostrNoteConfig = $derived({
 		title: $t('playground.title', { target: 'nostr-note' }),
 		description: $t('playground.description'),
 
