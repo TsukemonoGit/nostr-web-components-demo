@@ -23,10 +23,10 @@
 		"title": "デモ",
 		"description": "以下は実際のコンポーネントの動作例です。各コンポーネントがどのように機能するかを確認できます。",
 		"note": {
-			"title": "ノート表示"
+			"title": "ノート"
 		},
 		"profile": {
-			"title": "プロフィール表示"
+			"title": "プロフィール"
 		},
 		"profileName": {
 			"title": "プロフィール名のみ"
@@ -35,7 +35,10 @@
 			"title": "イベントリスト"
 		},
 		"naddr": {
-			"title": "Naddr イベントの表示"
+			"title": "Naddr イベント"
+		},
+		"stream": {
+			"title": "リアルタイムイベント"
 		}
 	},
 	"installation": {

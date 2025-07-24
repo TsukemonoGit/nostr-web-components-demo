@@ -36,6 +36,9 @@
 		},
 		"naddr": {
 			"title": "Naddr Display"
+		},
+		"stream": {
+			"title": "Live Event Stream"
 		}
 	},
 	"installation": {
