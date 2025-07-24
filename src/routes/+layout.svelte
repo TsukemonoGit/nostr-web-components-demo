@@ -6,11 +6,24 @@
 	import '../app.css';
 	//import Footer from '$lib/components/Footer.svelte';
 	import { base } from '$app/paths';
+	import { t } from '@konemono/svelte5-i18n';
 
 	let { children } = $props();
 	let isMenuOpen = $state(false);
 	const toggleMenu = () => (isMenuOpen = !isMenuOpen);
 </script>
+
+<svelte:head>
+	<title>Nostr Web Components @konemono</title
+	><!--ここを{$ogTitle}にするとMenubarの項目をホバーするだけでタイトル変わる謎になる-->
+
+	<meta property="og:title" content={$t('title')} />
+	<!--   <meta property="og:image" content={``} /> -->
+
+	<meta name="description" content={$t('description')} />
+
+	<meta property="og:description" content={$t('description')} />
+</svelte:head>
 
 <div class="grid h-screen grid-rows-[auto_1fr_auto]">
 	<!-- Header -->

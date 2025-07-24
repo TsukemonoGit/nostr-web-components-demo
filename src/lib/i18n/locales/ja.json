@@ -1,5 +1,5 @@
 {
-	"title": "@konemono Nostr Web Components",
+	"title": "Nostr Web Components @konemono",
 	"description": "Nostr プロトコルを簡単にWebアプリケーションに統合するためのコンポーネントライブラリ",
 	"components": {
 		"note": {
