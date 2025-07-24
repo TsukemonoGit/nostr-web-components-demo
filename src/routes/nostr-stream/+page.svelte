@@ -9,7 +9,7 @@
 		description: $t('playground.description'),
 		customInstructions: $t('playground.stream.instructions'),
 		defaultProps: {
-			filters: `[{"authors":["84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5"]}]`,
+			filters: `[{"kinds":[7]}]`,
 			limit: '3',
 			relays: 'wss://nfrelay.app,wss://nos.lol',
 			theme: 'auto',

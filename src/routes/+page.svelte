@@ -112,14 +112,10 @@
 						<h4>
 							{$t('demo.stream.title')}
 							<span class="ml-2 text-xs font-normal text-surface-400">
-								( filters: {'[{"authors":["84b0c4…782f5"]}]'}, limit: 3 )
+								( filters: {'[{"kinds":[7]}]'}, limit: 3 )
 							</span>
 						</h4>
-						<nostr-stream
-							theme={theme.get()}
-							filters={`[{"authors":["84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5"]}]`}
-							limit="3"
-						></nostr-stream>
+						<nostr-stream theme={theme.get()} filters={`[{"kinds":[7]}]`} limit="3"></nostr-stream>
 					</div>
 				</nostr-container>
 			</div>
