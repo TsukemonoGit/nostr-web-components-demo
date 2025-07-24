@@ -3,11 +3,11 @@
 	import { theme } from '$lib/runes/runes.svelte';
 	import { t } from '@konemono/svelte5-i18n';
 
-	// nostr-list専用の設定
+	// nostr-stream専用の設定
 	const nostrListConfig = {
-		title: $t('playground.title', { target: 'nostr-list' }),
+		title: $t('playground.title', { target: 'nostr-stream' }),
 		description: $t('playground.description'),
-
+		customInstructions: $t('playground.stream.instructions'),
 		defaultProps: {
 			filters: `[{"authors":["84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5"]}]`,
 			limit: '3',
@@ -113,14 +113,14 @@
 			if (props.limit && props.limit !== '0') attributes.push(`limit={${props.limit}}`);
 			if (props.display !== 'card') attributes.push(`display="${props.display}"`);
 
-			return `<nostr-list\n  ${attributes.join('\n  ')}\n></nostr-list>`;
+			return `<nostr-stream\n  ${attributes.join('\n  ')}\n></nostr-stream>`;
 		}
 	};
 </script>
 
 <InteractivePlayground config={nostrListConfig}
 	>{#snippet preview(props)}
-		<nostr-list
+		<nostr-stream
 			filters={props.filters || nostrListConfig.defaultProps.filters}
 			limit={props.limit || nostrListConfig.defaultProps.limit}
 			relays={props.relays
@@ -134,6 +134,6 @@
 				: props.theme || nostrListConfig.defaultProps.theme}
 			height={props.height || undefined}
 			display={props.display || nostrListConfig.defaultProps.display}
-		></nostr-list>
+		></nostr-stream>
 	{/snippet}</InteractivePlayground
 >

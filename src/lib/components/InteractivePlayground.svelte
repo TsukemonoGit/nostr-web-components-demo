@@ -120,7 +120,12 @@
 
 	{#if (config as any).customInstructions}
 		<div class="mb-4 rounded-lg bg-yellow-100 p-3 dark:bg-yellow-900">
-			<p class="text-sm text-yellow-800 dark:text-yellow-200">
+			<p
+				class="text-sm text-yellow-800 dark:text-yellow-200"
+				style="white-space: pre-wrap;
+		word-break: normal;
+		word-break: break-word;"
+			>
 				<strong>{$t('playground.usageLabel')}</strong>
 				{(config as any).customInstructions}
 			</p>

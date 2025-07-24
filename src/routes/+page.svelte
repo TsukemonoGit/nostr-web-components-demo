@@ -48,6 +48,14 @@
 				</div>
 				<a href={`${base}/nostr-list`} class="learn-more">{$t('learnMore')} →</a>
 			</div>
+			<div class="component-card">
+				<h3><span class="icon">L</span>nostr-stream</h3>
+				<p>{$t('components.stream.description')}</p>
+				<div class="code-example">
+					<code>&lt;nostr-stream filters="[...]" limit="3" theme="{theme.get()}" /&gt;</code>
+				</div>
+				<a href={`${base}/nostr-stream`} class="learn-more">{$t('learnMore')} →</a>
+			</div>
 		</div>
 	</section>
 	{#if browser}
@@ -91,14 +99,27 @@
 						<h4>
 							{$t('demo.list.title')}
 							<span class="ml-2 text-xs font-normal text-surface-400">
-								( filters: {'[{"authors":["84b0c4…782f5"]}]'}, limit: 3 )
+								( filters: {'[{"authors":["84b0c4…782f5"],"kinds":[1,6]}]'}, limit: 3 )
 							</span>
 						</h4>
 						<nostr-list
 							theme={theme.get()}
-							filters={`[{"authors":["84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5"]}]`}
+							filters={`[{"authors":["84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5"],"kinds":[1,6]}]`}
 							limit="3"
 						></nostr-list>
+					</div>
+					<div class="demo-item">
+						<h4>
+							{$t('demo.stream.title')}
+							<span class="ml-2 text-xs font-normal text-surface-400">
+								( filters: {'[{"authors":["84b0c4…782f5"]}]'}, limit: 3 )
+							</span>
+						</h4>
+						<nostr-stream
+							theme={theme.get()}
+							filters={`[{"authors":["84b0c46ab699ac35eb2ca286470b85e081db2087cdef63932236c397417782f5"]}]`}
+							limit="3"
+						></nostr-stream>
 					</div>
 				</nostr-container>
 			</div>
@@ -112,6 +133,7 @@
 			<a href={`${base}/nostr-profile`} class="nav-link">nostr-profile</a>
 			<a href={`${base}/nostr-naddr`} class="nav-link">nostr-naddr</a>
 			<a href={`${base}/nostr-list`} class="nav-link">nostr-list</a>
+			<a href={`${base}/nostr-stream`} class="nav-link">nostr-stream</a>
 			<a href={`${base}/installation`} class="nav-link">{$t('navigation.installation')}</a>
 			<a href={`${base}/api`} class="nav-link">{$t('navigation.api')}</a>
 		</div>

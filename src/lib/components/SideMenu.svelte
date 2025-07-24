@@ -57,6 +57,11 @@
 			<li>
 				<a href={`${base}/nostr-list`} class={getLinkClass(`${base}/nostr-list`)}>nostr-list</a>
 			</li>
+			<li>
+				<a href={`${base}/nostr-stream`} class={getLinkClass(`${base}/nostr-stream`)}
+					>nostr-stream</a
+				>
+			</li>
 		</ul>
 	</nav>
 
