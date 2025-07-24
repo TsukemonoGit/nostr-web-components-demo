@@ -4,7 +4,7 @@
 	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-profile専用の設定（例）
-	const nostrProfileConfig = {
+	let nostrProfileConfig = $state({
 		title: $t('playground.title', { target: 'nostr-profile' }),
 		description: $t('playground.description'),
 
@@ -112,7 +112,7 @@
 
 			return `<nostr-profile\n  ${attributes.join('\n  ')}\n></nostr-profile>`;
 		}
-	};
+	});
 </script>
 
 <InteractivePlayground config={nostrProfileConfig}

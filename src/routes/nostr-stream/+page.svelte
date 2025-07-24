@@ -4,7 +4,7 @@
 	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-stream専用の設定
-	const nostrListConfig = {
+	let nostrListConfig = $state({
 		title: $t('playground.title', { target: 'nostr-stream' }),
 		description: $t('playground.description'),
 		customInstructions: $t('playground.stream.instructions'),
@@ -115,7 +115,7 @@
 
 			return `<nostr-stream\n  ${attributes.join('\n  ')}\n></nostr-stream>`;
 		}
-	};
+	});
 </script>
 
 <InteractivePlayground config={nostrListConfig}

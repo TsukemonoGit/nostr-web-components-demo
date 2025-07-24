@@ -4,7 +4,7 @@
 	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-list専用の設定
-	const nostrListConfig = {
+	let nostrListConfig = $state({
 		title: $t('playground.title', { target: 'nostr-list' }),
 		description: $t('playground.description'),
 
@@ -115,7 +115,7 @@
 
 			return `<nostr-list\n  ${attributes.join('\n  ')}\n></nostr-list>`;
 		}
-	};
+	});
 </script>
 
 <InteractivePlayground config={nostrListConfig}

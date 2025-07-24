@@ -5,7 +5,7 @@
 	import { resolveToNoteId } from '$lib/utils/utils';
 	import { t } from '@konemono/svelte5-i18n';
 
-	const nostrNoteConfig = {
+	let nostrNoteConfig = $state({
 		title: $t('playground.title', { target: 'nostr-note' }),
 		description: $t('playground.description'),
 
@@ -112,7 +112,7 @@
 
 			return `<nostr-note\n  ${attributes.join('\n  ')}\n></nostr-note>`;
 		}
-	};
+	});
 </script>
 
 <InteractivePlayground config={nostrNoteConfig}>

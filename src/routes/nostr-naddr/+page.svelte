@@ -4,7 +4,7 @@
 	import { t } from '@konemono/svelte5-i18n';
 
 	// nostr-naddr専用の設定
-	const nostrNaddrConfig = {
+	let nostrNaddrConfig = $state({
 		title: $t('playground.title', { target: 'nostr-naddr' }),
 		description: $t('playground.description'),
 
@@ -221,7 +221,7 @@
 			previewProps.sortOrder = props.sortOrder || defaultProps.sortOrder;
 			return previewProps;
 		}
-	};
+	});
 </script>
 
 <InteractivePlayground config={nostrNaddrConfig}>
