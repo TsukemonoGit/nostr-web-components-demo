@@ -64,7 +64,9 @@
 			<p class="demo-intro">{$t('demo.description')}</p>
 
 			<div class="demo-container">
-				<nostr-container relays={`["wss://yabu.me","wss://nos.lol","wss://nfrelay.app"]`}>
+				<nostr-container
+					relays={`["wss://yabu.me","wss://nos.lol","wss://nfrelay.app","wss://relay-jp.nostr.wirednet.jp"]`}
+				>
 					<div class="demo-item">
 						<h4>{$t('demo.note.title')}</h4>
 						<nostr-note
