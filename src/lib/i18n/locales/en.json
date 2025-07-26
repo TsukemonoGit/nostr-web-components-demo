@@ -141,8 +141,8 @@
 			"help": "List of relay URLs used for fetching (optional)"
 		},
 		"href": {
-			"placeholder": "https://example.com",
-			"help": "The URL of the event link.\nIf omitted, it will be generated automatically"
+			"placeholder": "https://example.com/{id}",
+			"help": "You can specify a custom URL for the event link.\nPlaceholders like `{id}`, `{user}`, or `{naddr}` will be replaced with the corresponding ID value.\nIf omitted, the default `https://njump.me/{id}` will be used.\nYou can also provide a full static URL directly."
 		},
 		"target": {
 			"help": "Specifies the target attribute of the link\nExample: \"_blank\""

@@ -141,8 +141,8 @@
 			"help": "取得に使用するRelayのURLリスト（省略可）"
 		},
 		"href": {
-			"placeholder": "https://example.com",
-			"help": "イベントリンクのURL。\n指定しない場合は自動生成されます"
+			"placeholder": "https://example.com/{id}",
+			"help": "イベントリンクのURLを指定できます。\n`{id}` や `{user}` を含めると、対応する値で置き換えられます。\n省略した場合は `https://njump.me/{id}` が使用されます。\n完全なURLを直接指定することも可能です。"
 		},
 		"target": {
 			"help": "リンクのtarget属性を指定します\n例: \"_blank\""
